@@ -1,0 +1,3 @@
+
+const content = `Recovery begins in the quiet aftermath. Farida's mother offers comfort without words, simply holding her. A new rule is established: "10 minutes without a screen." It's a small but significant start. Her brother Omar helps her with homework, re-establishing a simple connection. The turning point is a quiet conversation with her father on the stairs. He apologizes sincerely for comparing her to her brother and shows her the cut on his hand from breaking the phone, explaining it came from a place of fear for her. She, in turn, admits her fault in hiding things. He offers her a new, simple phone with a proposal: "Shall we start over? A new phone... with our rules." This marks the beginning of rebuilding trust.`;
+export default content;

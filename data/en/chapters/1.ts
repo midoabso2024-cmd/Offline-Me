@@ -1,0 +1,3 @@
+
+const content = `The chapter opens on a silent family dinner. Farida, 17, is physically present but mentally absent, her face illuminated by the cold, blue light of her phone, creating a stark contrast with the warm, dim light on her family. Her father's attempts to connect are met with a dismissive "just a second" that never comes. Farida's inner voice reveals her feeling of being surrounded yet profoundly alone. The conflict extends to her room, visually split between the harsh blue light of reality and the soft pink glow of her social media world. The chapter ends with her father's heartbroken gaze, feeling powerless to reach his daughter, who fights sleep to stay connected to a device that offers a false sense of belonging.`;
+export default content;

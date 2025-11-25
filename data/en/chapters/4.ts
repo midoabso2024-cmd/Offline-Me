@@ -1,0 +1,3 @@
+
+const content = `The collapse begins with a confrontation in a cracked mirror, where Farida sees her fragmented self. The psychological breakdown becomes physical when her father, feeling utterly betrayed by her lies about "study groups," confronts her. The argument reaches a dramatic climax as he smashes her phone on the floor. "You broke my life!" she screams. "Was your life in that phone?!" he retorts bitterly. As she reaches for the shattered blue fragments, her inner voice admits the tragic truth behind her "joke" about the black rose: "I was kidding... but maybe I was calling for someone to hear me." The chapter ends with her father quietly sweeping up the pieces, his eyes filled with heavy regret.`;
+export default content;

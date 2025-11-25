@@ -1,0 +1,3 @@
+
+const content = `The journey culminates in a public confrontation with her past. In a packed presentation hall, Farida stands confidently, her visual aids telling the story of a black rose wilting and a white bud blooming. "I'm not against the phone... I'm against getting lost," she declares to thunderous applause from her proud family and peers. Her victory is not just personal. Afterward, she approaches a younger, lost-looking student—a reflection of her former self—and offers practical, gentle advice on how to start her own journey to balance. Farida's struggle is no longer just her own; it has become a "beacon of hope" for others.`;
+export default content;

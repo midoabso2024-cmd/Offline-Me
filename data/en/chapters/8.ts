@@ -1,0 +1,3 @@
+
+const content = `A deep and stable calm settles over the household. The family sits at the same dinner table from Chapter One, but now it is filled with warmth and gratitude. The strict rules have evolved into an unspoken understanding. The final scene finds Farida alone on the rooftop at sunset. Her white rose is now in full, vibrant bloom. There is no phone in sight, only an open book and a pen, ready for her to write her own new story. This quiet moment of true blossoming signifies that her decision to "disconnect" was not a loss, but the beginning of truly seeing life.`;
+export default content;

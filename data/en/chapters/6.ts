@@ -1,0 +1,3 @@
+
+const content = `The family's reconciliation transforms into shared action. Together, on the rooftop, they plant a white rose, a tangible symbol of their new beginning and hope. This small act is fragile, just like recovery, a point underscored when a petal nearly breaks, but her father gently helps her, showing that support must be constant. Farida begins to log small victories, extending her screen-free time from ten minutes to twelve. The dinner table, once a site of silent conflict, is now filled with laughter and connection, with all phones put away. The warmth is real, no longer interrupted by a cold blue light.`;
+export default content;

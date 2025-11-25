@@ -1,0 +1,3 @@
+
+const content = `Farida's dissociation intensifies. On the bus and in class, she is physically present but mentally gone, her eyes open but unseeing. When her teacher calls on her, his voice distorts into a strange underwater hum. After being sent out, she sees her final grade on the notice board: "Failed." She remains numb. The true shock comes later that night when a notification reveals the death of another student who had posted "I can't stand the world." The parallel is terrifyingly clear. Farida whispers in frozen realization, "She was screaming too... but who heard her?" She understands that her own fate could mirror this tragedy.`;
+export default content;

@@ -1,0 +1,3 @@
+
+const content = `The disconnect deepens as Farida rejects a family visit to her grandmother, bluntly stating she "can't live without the internet." The mother is left stunned by the cold priority of digital access over family connection. Later, alone in her room, Farida scrolls to an old, cryptic post: "Whoever remembers me after I disappear... draw me a black rose." A single, unshed tear forms as she reads the shallow, joking comments, realizing her coded cry for help went completely unheard. Her inner voice confirms the devastating truth: "I was screaming... but no one heard me." She places the phone face down, plunging the room into darkness and total isolation.`;
+export default content;
