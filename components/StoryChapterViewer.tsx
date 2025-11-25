@@ -19,10 +19,13 @@ const StoryChapterViewer: React.FC<StoryChapterViewerProps> = ({ chapter, allCha
   const hasPrev = currentIndex > 0;
   const hasNext = currentIndex < allChapters.length - 1;
 
-  // Separation Logic for Scientific Appendix
-  const separator = "________________________________________";
-  const contentParts = chapter.fullContent.split(separator);
+  // Robust Separation Logic for Scientific Appendix using Regex
+  // Matches a line of 10 or more underscores/dashes
+  const separatorRegex = /_{10,}|-{10,}/; 
+  const contentParts = chapter.fullContent.split(separatorRegex);
+  
   const storyPart = contentParts[0];
+  // If there's a second part, use it. If not, check if the split didn't work as expected or appendix is missing.
   const appendixPart = contentParts.length > 1 ? contentParts[1] : null;
 
   const paragraphs = storyPart.split('\n').filter(p => p.trim() !== '');
@@ -165,55 +168,63 @@ const StoryChapterViewer: React.FC<StoryChapterViewerProps> = ({ chapter, allCha
           ))}
         </div>
 
-        {/* Scientific Appendix Card (Rendered if appendixPart exists) */}
+        {/* Scientific Appendix Section - Cards Layout */}
         {appendixPart && (
-            <div className="mt-12 bg-surface border-t-4 border-teal rounded-xl p-6 md:p-8 shadow-lg relative overflow-hidden">
-                <div className="absolute inset-0 bg-teal/5 pointer-events-none"></div>
+            <div className="mt-16 animate-fade-in-up">
+                <div className="flex items-center gap-3 mb-8 justify-center border-t border-border-light/30 pt-8">
+                    <Icon name="insight-academic" className="w-8 h-8 text-teal" />
+                    <h3 className="text-2xl md:text-3xl font-bold text-teal">
+                        الملحق العلمي
+                    </h3>
+                </div>
                 
-                {/* Parse Appendix Content */}
-                {appendixPart.split('\n').filter(p => p.trim() !== '').map((line, idx) => {
-                    const trimmedLine = line.trim();
-                    
-                    // Title Detection
-                    if (trimmedLine.includes('الملحق العلمي')) {
+                {/* Single Column Layout for Cards */}
+                <div className="flex flex-col gap-6">
+                    {appendixPart.split('\n').filter(p => p.trim() !== '').map((line, idx) => {
+                        const trimmedLine = line.trim();
+                        
+                        // Skip the title line inside the loop as we render a custom header
+                        if (trimmedLine.includes('الملحق العلمي') || trimmedLine === '***') {
+                            return null;
+                        }
+                        
+                        // Parse Bullet Points into Cards
+                        if (trimmedLine.startsWith('•')) {
+                            const content = trimmedLine.substring(1).trim();
+                            const colonIndex = content.indexOf(':');
+                            
+                            let title = '';
+                            let description = content;
+
+                            if (colonIndex !== -1) {
+                                title = content.substring(0, colonIndex).trim();
+                                description = content.substring(colonIndex + 1).trim();
+                            }
+
+                            return (
+                                <div key={idx} className="bg-surface border border-border-light rounded-xl p-6 shadow-md hover:border-teal/50 hover:shadow-teal/10 hover:-translate-y-1 transition-all duration-300 flex flex-col gap-3 w-full">
+                                    {title && (
+                                        <h4 className="text-lg md:text-xl font-bold text-teal flex items-start gap-2">
+                                            <Icon name="bullet-circle" className="w-5 h-5 mt-1.5 flex-shrink-0" />
+                                            {title}
+                                        </h4>
+                                    )}
+                                    <p className={`text-text-light leading-relaxed text-sm md:text-base ${!title ? 'flex gap-2' : ''}`}>
+                                        {!title && <Icon name="bullet-circle" className="w-5 h-5 mt-1 flex-shrink-0 text-teal" />}
+                                        {description}
+                                    </p>
+                                </div>
+                            );
+                        }
+                        
+                        // Render any intro/outro text that isn't a bullet point as a full-width centered block
                         return (
-                             <h3 key={idx} className="text-xl md:text-2xl font-bold text-teal mb-6 flex items-center gap-3 relative z-10 border-b border-teal/20 pb-3">
-                                <Icon name="insight-academic" className="w-6 h-6 md:w-8 md:h-8" />
-                                {trimmedLine}
-                            </h3>
+                            <div key={idx} className="bg-teal/5 border border-teal/10 rounded-lg p-4 text-center w-full">
+                                <p className="text-text-light text-base md:text-lg">{trimmedLine}</p>
+                            </div>
                         );
-                    }
-                    
-                    // Bullet Point Detection
-                    if (trimmedLine.startsWith('•')) {
-                         // Split term (English/Arabic) and definition if possible, purely styling
-                         const colonIndex = trimmedLine.indexOf(':');
-                         if (colonIndex !== -1) {
-                             const term = trimmedLine.substring(1, colonIndex + 1); // Includes bullet and colon
-                             const def = trimmedLine.substring(colonIndex + 1);
-                             return (
-                                 <div key={idx} className="mb-4 relative z-10 flex items-start gap-2">
-                                     <span className="text-teal text-xl leading-none mt-1">•</span>
-                                     <p className="text-base md:text-lg leading-relaxed text-text-light">
-                                        <span className="font-bold text-white">{term.substring(1)}</span>
-                                        {def}
-                                     </p>
-                                 </div>
-                             )
-                         }
-                        return (
-                             <div key={idx} className="mb-4 relative z-10 flex items-start gap-2">
-                                 <span className="text-teal text-xl leading-none mt-1">•</span>
-                                 <p className="text-base md:text-lg leading-relaxed text-text-light">
-                                    {trimmedLine.substring(1)}
-                                 </p>
-                             </div>
-                        );
-                    }
-                    
-                    // Normal paragraph inside appendix
-                    return <p key={idx} className="text-base md:text-lg text-text-light mb-4 leading-relaxed relative z-10">{trimmedLine}</p>
-                })}
+                    })}
+                </div>
             </div>
         )}
 

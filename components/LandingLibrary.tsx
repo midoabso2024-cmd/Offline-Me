@@ -1,4 +1,3 @@
-
 import React, { useRef, useState, useEffect } from 'react';
 import type { Section } from '../types';
 import { useLanguage } from '../contexts/LanguageContext';
@@ -43,11 +42,11 @@ const LandingNavGrid: React.FC<LandingNavGridProps> = ({ navigateTo }) => {
 
     return (
         <div className="py-16 mt-12">
-            <div className="text-center mb-12">
-                <div className="flex justify-center mb-4">
-                    <Icon name="grid" className="h-16 w-16 md:h-20 md:w-20 text-teal" />
+            <div className="flex flex-col items-center text-center mb-8">
+                <div className="flex items-center justify-center gap-3 mb-2">
+                    <Icon name="grid" className="h-8 w-8 md:h-10 md:w-10 text-teal" />
+                    <h2 className="text-xl md:text-2xl font-bold text-text-dark uppercase tracking-wider">{t('exploreTitle')}</h2>
                 </div>
-                <h2 className="text-3xl md:text-4xl font-bold text-text-dark uppercase tracking-wider">{t('exploreTitle')}</h2>
             </div>
             <div className="max-w-7xl mx-auto relative">
                 <div 

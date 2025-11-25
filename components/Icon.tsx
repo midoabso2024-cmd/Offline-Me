@@ -4,13 +4,13 @@ import React from 'react';
 
 export type IconName = 
   | 'book' | 'puzzle' | 'grid' | 'user' | 'bot-stars' | 'arrow-left' | 'arrow-right'
-  | 'chapter-1' | 'chapter-2' | 'chapter-3' | 'chapter-4' | 'chapter-5' | 'chapter-6' | 'chapter-7' | 'chapter-8'
+  | 'chapter-0' | 'chapter-1' | 'chapter-2' | 'chapter-3' | 'chapter-4' | 'chapter-5' | 'chapter-6' | 'chapter-7' | 'chapter-8'
   | 'insight-emotional' | 'insight-nomophobia' | 'insight-global' | 'insight-recovery' | 'insight-tips' | 'insight-physical'
   | 'insight-definition' | 'insight-academic' | 'insight-social' | 'insight-behavior' | 'insight-time' | 'insight-causes' | 'insight-parents'
   | 'article-psychology' | 'article-detox' | 'article-bluelight' | 'article-minimalism' | 'article-fomo' | 'article-nature' | 'article-dumbphone' | 'article-hobbies'
   | 'article-default' | 'story-default' | 'bullet-circle'
   | 'char-farida' | 'char-father' | 'char-mother' | 'char-omar'
-  | 'test-timer' | 'studio' | 'info-circle' | 'email';
+  | 'test-timer' | 'studio' | 'info-circle' | 'email' | 'facebook' | 'instagram' | 'tiktok' | 'youtube';
 
 interface IconProps {
   name: IconName;
@@ -41,7 +41,7 @@ const Icon: React.FC<IconProps> = ({ name, className = 'h-6 w-6' }) => {
       iconPath = <path strokeLinecap="round" strokeLinejoin="round" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z" />;
       break;
     case 'grid':
-      iconPath = <path strokeLinecap="round" strokeLinejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />;
+      iconPath = <path strokeLinecap="round" strokeLinejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />;
       break;
     case 'user':
       iconPath = <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />;
@@ -68,6 +68,21 @@ const Icon: React.FC<IconProps> = ({ name, className = 'h-6 w-6' }) => {
     case 'email':
       iconPath = <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />;
       break;
+    
+    // Social Icons
+    case 'facebook':
+      iconPath = <path strokeLinecap="round" strokeLinejoin="round" d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />;
+      break;
+    case 'instagram':
+      iconPath = <path strokeLinecap="round" strokeLinejoin="round" d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37zM17.5 6.5h.01M6.5 2H17.5A4.5 4.5 0 0 1 22 6.5v11a4.5 4.5 0 0 1-4.5 4.5H6.5A4.5 4.5 0 0 1 2 17.5v-11A4.5 4.5 0 0 1 6.5 2z" />;
+      break;
+    case 'tiktok':
+      iconPath = <path strokeLinecap="round" strokeLinejoin="round" d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" />;
+      break;
+    case 'youtube':
+      iconPath = <path strokeLinecap="round" strokeLinejoin="round" d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33zM9.75 15.02l5.75-3.27-5.75-3.27v6.54z" />;
+      break;
+
     // Character Icons
     case 'char-farida': strokeWidth = 1.5; iconPath = <><path d="M12 12a3 3 0 100-6 3 3 0 000 6z" /><path fillRule="evenodd" clipRule="evenodd" d="M12 14.5c-4.14 0-7.5 2.01-7.5 4.5V20h15v-1c0-2.49-3.36-4.5-7.5-4.5z" /></>; break;
     case 'char-father': strokeWidth = 1.5; iconPath = <><path d="M12 12a3 3 0 100-6 3 3 0 000 6z" /><path fillRule="evenodd" clipRule="evenodd" d="M12 14.5a7.5 7.5 0 00-7.5 7.5H12V16a1 1 0 112 0v6h5.5a7.5 7.5 0 00-7.5-7.5z" /></>; break;
@@ -76,6 +91,7 @@ const Icon: React.FC<IconProps> = ({ name, className = 'h-6 w-6' }) => {
 
 
     // Chapter Icons
+    case 'chapter-0': iconPath = <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />; break;
     case 'chapter-1': iconPath = <path strokeLinecap="round" strokeLinejoin="round" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />; break;
     case 'chapter-2': iconPath = <path d="M6.2 18.2C2.8 15.8 2 12.1 3.2 8.5S8 3.3 11.5 3.3c2.3 0 4.3 1.1 5.6 2.8L12 12l-5.8 6.2zM17.8 5.8C21.2 8.2 22 11.9 20.8 15.5s-4.8 6.2-8.3 6.2c-2.3 0-4.3-1.1-5.6-2.8L12 12l5.8-6.2z"/>; break;
     case 'chapter-3': iconPath = <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0zm-2.122 4.122a6.965 6.965 0 01-9.756-9.756 6.965 6.965 0 019.756 9.756zM2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />; break;
@@ -98,7 +114,7 @@ const Icon: React.FC<IconProps> = ({ name, className = 'h-6 w-6' }) => {
     case 'insight-academic': iconPath = <path strokeLinecap="round" strokeLinejoin="round" d="M12 14l9-5-9-5-9 5 9 5z M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z M12 14v6" />; break;
     case 'insight-social': iconPath = <path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />; break;
     case 'insight-behavior': iconPath = <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />; break;
-    case 'insight-time': iconPath = <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />; break;
+    case 'insight-time': iconPath = <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0 1 18 0z" />; break;
     case 'insight-causes': iconPath = <path strokeLinecap="round" strokeLinejoin="round" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />; break;
     case 'insight-parents': iconPath = <path strokeLinecap="round" strokeLinejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />; break;
 
@@ -107,16 +123,16 @@ const Icon: React.FC<IconProps> = ({ name, className = 'h-6 w-6' }) => {
     case 'article-detox': strokeWidth = 1.5; iconPath = <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />; break;
     case 'article-bluelight': strokeWidth = 1.5; iconPath = <path strokeLinecap="round" strokeLinejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />; break;
     case 'article-minimalism': strokeWidth = 1.5; iconPath = <path strokeLinecap="round" strokeLinejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />; break;
-    case 'article-fomo': strokeWidth = 1.5; iconPath = <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M15 21a6 6 0 00-9-5.197m0 0A5.995 5.995 0 0012 12a5.995 5.995 0 00-3-5.197M15 21a9 9 0 00-9-9" />; break;
-    case 'article-nature': strokeWidth = 1.5; iconPath = <path strokeLinecap="round" strokeLinejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2h8a2 2 0 002-2v-1a2 2 0 012-2h1.945M7.737 10.512A4.5 4.5 0 0112 8c1.786 0 3.44.894 4.462 2.268M12 21a9 9 0 100-18 9 9 0 000 18z" />; break;
-    case 'article-dumbphone': strokeWidth = 1.5; iconPath = <path strokeLinecap="round" strokeLinejoin="round" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />; break;
-    case 'article-hobbies': strokeWidth = 1.5; iconPath = <path strokeLinecap="round" strokeLinejoin="round" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z" />; break;
-    case 'article-default': strokeWidth = 1; iconPath = <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />; break;
+    case 'article-fomo': strokeWidth = 1.5; iconPath = <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.354a4 4 0 1 1 0 5.292M15 21H3v-1a6 6 0 0 1 12 0v1zm0 0h6v-1a6 6 0 0 0-9-5.197M15 21a6 6 0 0 0-9-5.197m0 0A5.995 5.995 0 0 0 12 12a5.995 5.995 0 0 0-3-5.197M15 21a9 9 0 0 0-9-9" />; break;
+    case 'article-nature': strokeWidth = 1.5; iconPath = <path strokeLinecap="round" strokeLinejoin="round" d="M3.055 11H5a2 2 0 0 1 2 2v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a2 2 0 0 1 2-2h1.945M7.737 10.512A4.5 4.5 0 0 1 12 8c1.786 0 3.44.894 4.462 2.268M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z" />; break;
+    case 'article-dumbphone': strokeWidth = 1.5; iconPath = <path strokeLinecap="round" strokeLinejoin="round" d="M12 18h.01M8 21h8a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2z" />; break;
+    case 'article-hobbies': strokeWidth = 1.5; iconPath = <path strokeLinecap="round" strokeLinejoin="round" d="M11 4a2 2 0 1 1 4 0v1a1 1 0 0 0 1 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1a2 2 0 1 0 0 4h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-3a1 1 0 0 1-1-1v-1a2 2 0 1 0-4 0v1a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1v-3a1 1 0 0 0-1-1H4a2 2 0 1 1 0-4h1a1 1 0 0 0 1-1V7a1 1 0 0 1 1-1h3a1 1 0 0 0 1-1V4z" />; break;
+    case 'article-default': strokeWidth = 1; iconPath = <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5.586a1 1 0 0 1 .707.293l5.414 5.414a1 1 0 0 1 .293.707V19a2 2 0 0 1-2 2z" />; break;
     case 'story-default': strokeWidth = 1; iconPath = <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />; break;
-    case 'test-timer': strokeWidth = 1.5; iconPath = <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />; break;
+    case 'test-timer': strokeWidth = 1.5; iconPath = <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0z" />; break;
     case 'studio':
       strokeWidth = 1.5;
-      iconPath = <path strokeLinecap="round" strokeLinejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.5L13.196 5.232z" />;
+      iconPath = <path strokeLinecap="round" strokeLinejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 1 1 3.536 3.536L6.5 21.036H3v-3.5L13.196 5.232z" />;
       break;
 
     default:

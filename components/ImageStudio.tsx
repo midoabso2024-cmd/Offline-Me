@@ -154,12 +154,12 @@ const ImageStudio: React.FC = () => {
         <div className="max-w-5xl mx-auto my-16 bg-surface border border-border-light rounded-2xl shadow-xl p-6 md:p-8 transition-all duration-300 transform hover:-translate-y-1">
             
             {/* Header Section - Inside Card */}
-            <div className="text-center mb-6">
-                <div className="flex justify-center mb-4">
-                    <Icon name="studio" className="h-16 w-16 md:h-20 md:w-20 text-teal" />
+            <div className="flex flex-col items-center text-center mb-6">
+                <div className="flex items-center justify-center gap-3 mb-2">
+                    <Icon name="studio" className="h-8 w-8 md:h-10 md:w-10 text-teal" />
+                    <h2 className="text-xl md:text-2xl font-bold text-text-dark uppercase tracking-wider">{t('studioTitle')}</h2>
                 </div>
-                <h2 className="text-3xl md:text-4xl font-bold text-text-dark uppercase tracking-wider">{t('studioTitle')}</h2>
-                <p className="mt-2 text-lg text-text-light">{t('studioSubtitle')}</p>
+                <p className="text-sm md:text-base text-text-light">{t('studioSubtitle')}</p>
             </div>
 
             {/* Viewport / Result Area - Above Input */}

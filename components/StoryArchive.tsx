@@ -1,8 +1,7 @@
 
 import React from 'react';
-import type { StoryChapter } from '../types';
+import type { StoryChapter, CharacterProfile } from '../types';
 import { useLanguage } from '../contexts/LanguageContext';
-import CharacterProfiles from './CharacterProfiles';
 import Icon, { IconName } from './Icon';
 
 interface StoryArchiveProps {
@@ -12,189 +11,220 @@ interface StoryArchiveProps {
 
 const StoryArchive: React.FC<StoryArchiveProps> = ({ chapters, onSelectChapter }) => {
   const { t } = useLanguage();
+  const rawCharacters = t('characters');
+  const characters: CharacterProfile[] = Array.isArray(rawCharacters) ? rawCharacters : [];
 
   const getChapterImage = (chapter: StoryChapter) => {
-      // Priority 1: Use the first image from the chapter's comic panels if available
+      // Expressive Cover Images for Cards
+      const coverImages: {[key: number]: string} = {
+          0: "https://images.unsplash.com/photo-1509021436665-8f07dbf5bf1d?q=80&w=800&auto=format&fit=crop", // Intro: Identity/Question
+          1: "https://images.unsplash.com/photo-1555617766-c94804975da3?q=80&w=800&auto=format&fit=crop", // Ch1: Blue Light/Phone in dark
+          2: "https://images.unsplash.com/photo-1596607278833-1324eb3db918?q=80&w=800&auto=format&fit=crop", // Ch2: Isolation/Window
+          3: "https://images.unsplash.com/photo-1610484826967-09c5720778c7?q=80&w=800&auto=format&fit=crop", // Ch3: Stress/Turmoil
+          4: "https://images.unsplash.com/photo-1623155727091-2007279840d2?q=80&w=800&auto=format&fit=crop", // Ch4: Broken Screen/Glass
+          5: "https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?q=80&w=800&auto=format&fit=crop", // Ch5: Sunlight/Peace
+          6: "https://images.unsplash.com/photo-1591199541210-74088d071194?q=80&w=800&auto=format&fit=crop", // Ch6: Planting/Earth
+          7: "https://images.unsplash.com/photo-1544531586-fde5298cdd40?q=80&w=800&auto=format&fit=crop", // Ch7: Speaking/Confident
+          8: "https://images.unsplash.com/photo-1490750967868-58cb75063ed4?q=80&w=800&auto=format&fit=crop", // Ch8: Blooming/Sky
+      };
+
+      if (coverImages[chapter.id]) {
+          return coverImages[chapter.id];
+      }
+
       if (chapter.images && chapter.images.length > 0) {
           return chapter.images[0];
       }
-
-      // Priority 2: Fallback to hardcoded placeholders based on ID
-      const images: {[key: number]: string} = {
-          // Dramatic/Comic Style Images
-          1: "https://images.unsplash.com/photo-1618336753974-aae8e04506aa?q=80&w=600&auto=format&fit=crop",
-          2: "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=600&auto=format&fit=crop",
-          3: "https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?q=80&w=600&auto=format&fit=crop",
-          4: "https://images.unsplash.com/photo-1517849845537-4d257902454a?q=80&w=600&auto=format&fit=crop",
-          5: "https://images.unsplash.com/photo-1518173946687-a4c8892bbd9f?q=80&w=600&auto=format&fit=crop",
-          6: "https://images.unsplash.com/photo-1621193677201-53a6975f0cb5?q=80&w=600&auto=format&fit=crop",
-          7: "https://images.unsplash.com/photo-1515634928627-2a4e0dae3ddf?q=80&w=600&auto=format&fit=crop",
-          8: "https://images.unsplash.com/photo-1494548162494-384d6fa0d917?q=80&w=600&auto=format&fit=crop",
-      };
-      return images[chapter.id] || "https://images.unsplash.com/photo-1614726365723-49cfae950f29?q=80&w=600&auto=format&fit=crop";
+      
+      return "https://images.unsplash.com/photo-1614726365723-49cfae950f29?q=80&w=600&auto=format&fit=crop";
   };
 
   const getChapterBadgeLabel = (id: number) => {
-      const badges: {[key: number]: string} = {
-          1: "الفصل الأول",
-          2: "الفصل الثاني",
-          3: "الفصل الثالث",
-          4: "الفصل الرابع",
-          5: "الفصل الخامس",
-          6: "الفصل السادس",
-          7: "الفصل السابع",
-          8: "الفصل الثامن",
+      if (id === 0) return t('introLabel');
+      return `${t('chapterLabel', { id })}`;
+  };
+
+  // Character Image Logic
+  const characterGroupImage = "https://scontent.fcai20-4.fna.fbcdn.net/v/t39.30808-6/583681410_122099688531122002_990412484135725279_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=833d8c&_nc_ohc=KYBRj83AWC0Q7kNvwGg5E3e&_nc_oc=AdnZZZx2B4_-Pxgwtyg3PhLbc-npw8cROkRpHQy0W2a8xmoIUleuQ9DgeGLuS3oruCs&_nc_zt=23&_nc_ht=scontent.fcai20-4.fna&_nc_gid=FQV7udguVyCthBdeZvavgA&oh=00_Afh1HfImrAw5CwEsD1Vxz3A0Y-XJCmS_cApKBxOSb6m_RQ&oe=6923FB80";
+
+  const getCharacterImageStyle = (id: string) => {
+      const baseStyle = {
+          backgroundImage: `url('${characterGroupImage}')`,
+          backgroundSize: '400%', 
+          backgroundRepeat: 'no-repeat',
       };
-      return badges[id] || t('chapterLabel', { id });
+
+      switch (id) {
+          case 'farida': return { ...baseStyle, backgroundPosition: '48% 25%' }; 
+          case 'father': return { ...baseStyle, backgroundPosition: '8% 20%' };
+          case 'mother': return { ...baseStyle, backgroundPosition: '90% 25%' };
+          case 'omar':   return { ...baseStyle, backgroundPosition: '68% 30%' };
+          default: return baseStyle;
+      }
   };
 
   return (
-    <div className="max-w-7xl mx-auto space-y-12">
+    <div className="max-w-7xl mx-auto space-y-12 pb-12 animate-fade-in-up">
       
-      {/* Book Introduction & Credits Section */}
-      <div className="w-full mx-auto space-y-12 animate-fade-in-up">
-        
-        {/* Title Section with Image */}
-        <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12 p-4">
-             {/* Image Column (Right in RTL) */}
-             <div className="w-full md:w-1/3 flex-shrink-0 order-1 md:order-1">
-                 <div className="relative aspect-[3/4] w-full max-w-sm mx-auto md:mr-0 rounded-2xl overflow-hidden shadow-2xl border border-white/10 group">
+      {/* 1. Hero Section: Book Details & Credits */}
+      <div className="relative w-full bg-surface border border-border-light rounded-3xl overflow-hidden shadow-2xl">
+          {/* Decorative Background */}
+          <div className="absolute inset-0 bg-gradient-to-br from-surface via-[#1a1a2e] to-black opacity-90 z-0"></div>
+          <div className="absolute top-0 right-0 w-64 h-64 bg-teal/5 rounded-full blur-3xl pointer-events-none"></div>
+          <div className="absolute bottom-0 left-0 w-64 h-64 bg-violet/5 rounded-full blur-3xl pointer-events-none"></div>
+
+          <div className="relative z-10 p-6 md:p-10 flex flex-col lg:flex-row items-center lg:items-start gap-8 md:gap-12">
+              
+              {/* Book Cover */}
+              <div className="flex-shrink-0 w-48 md:w-64 shadow-[0_20px_50px_rgba(0,0,0,0.5)] rounded-xl overflow-hidden transform transition-transform duration-500 hover:scale-[1.02] border border-white/10">
+                  <img 
+                      src="https://scontent.fcai19-5.fna.fbcdn.net/v/t39.30808-6/586193814_25128465753455937_2211687604428638537_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeGG2RMXT0WbZa3vxz1KG-_MOnQoduHousE6dCh24ei6wU303AixuJjW3Pj3kR4rsrbyIeZ1ix0kYeeBHVGahB2W&_nc_ohc=i5Y_EjR0HHoQ7kNvwFy2pGY&_nc_oc=AdlHWibg9F-vT0IqNVBhx2hd2uepxvHt0-8Iyad0VCm_z_kfp2qQCapLMRPB0MDtcrU&_nc_zt=23&_nc_ht=scontent.fcai19-5.fna&_nc_gid=OpG4zQth1uwVyAgMSiQLpQ&oh=00_AfjIeq_CegbTj3LsNR7BLl5CgK13o32GjVQgMb006-1ulg&oe=692B8584" 
+                      alt="Offline-Me Cover" 
+                      className="w-full h-auto object-cover"
+                  />
+              </div>
+
+              {/* Book Info */}
+              <div className="flex-grow text-center lg:text-start space-y-6">
+                  <div>
+                      <h1 className="text-4xl md:text-5xl font-bold text-white font-tajawal mb-2 drop-shadow-lg">
+                          فصلت عشان أعيش <span className="text-teal block md:inline text-3xl md:text-4xl mt-2 md:mt-0">(Offline-Me)</span>
+                      </h1>
+                      <p className="text-xl md:text-2xl text-text-light italic opacity-90 font-light mt-4 border-b border-white/10 pb-4 inline-block">
+                          "ما سبتش حياتي عشان أعيش، أنا فصلت عشان أشوفها"
+                      </p>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-base md:text-lg">
+                      <div className="bg-white/5 rounded-xl p-4 border border-white/5">
+                          <p className="text-teal font-bold mb-1 flex items-center justify-center lg:justify-start gap-2">
+                              <Icon name="user" className="w-5 h-5" /> تأليف
+                          </p>
+                          <p className="text-white">محمد عبد الستار – فاطمة فهمي – محمود فليفل</p>
+                      </div>
+                      <div className="bg-white/5 rounded-xl p-4 border border-white/5">
+                          <p className="text-violet font-bold mb-1 flex items-center justify-center lg:justify-start gap-2">
+                              <Icon name="insight-academic" className="w-5 h-5" /> تحت إشراف
+                          </p>
+                          <p className="text-white">د/ سحر مصطفى – د/ سماح الشهاوي</p>
+                      </div>
+                  </div>
+
+                  <div className="text-sm text-text-light/60 pt-2">
+                      <p>مشروع تخرج ماجستير الاعلام الرقمي والامن المعلوماتي 2025/2026 - كلية الاعلام – جامعة القاهرة</p>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      {/* 2. Characters Strip */}
+      <div>
+          <div className="flex items-center gap-3 mb-6 px-2">
+              <div className="h-8 w-1 bg-teal rounded-full"></div>
+              <h3 className="text-2xl font-bold text-white">أبطال القصة</h3>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {characters.map(char => (
+                  <div key={char.id} className="bg-surface border border-border-light p-4 rounded-2xl flex flex-col items-center text-center transition-all duration-300 hover:border-teal/50 hover:-translate-y-1 shadow-md group">
+                      <div className="w-20 h-20 rounded-full overflow-hidden border-2 border-teal/30 group-hover:border-teal mb-3 shadow-lg bg-cream">
+                          <div className="w-full h-full bg-cover" style={getCharacterImageStyle(char.id)}></div>
+                      </div>
+                      <h4 className="font-bold text-white text-lg mb-1">{char.name}</h4>
+                      <p className="text-teal text-xs font-medium uppercase tracking-wider bg-teal/10 px-2 py-1 rounded-full">{char.role}</p>
+                  </div>
+              ))}
+          </div>
+      </div>
+
+      {/* 3. Dedication - Full Width */}
+      <div className="w-full">
+          {/* Dedication */}
+          <div className="bg-surface border border-border-light rounded-xl shadow-lg overflow-hidden group transform transition-transform duration-300 hover:-translate-y-1 hover:border-teal/30 p-8 md:p-10 relative flex flex-col h-full text-center">
+              <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                  <Icon name="book" className="w-48 h-48 text-teal" />
+              </div>
+              <h3 className="text-2xl font-bold text-teal mb-8 flex items-center justify-center gap-3 relative z-10">
+                  <Icon name="book" className="w-8 h-8" /> الإهداء
+              </h3>
+              <div className="space-y-4 text-text-light italic text-lg md:text-xl leading-relaxed text-center font-tajawal relative z-10 flex-grow flex flex-col justify-center">
+                  <p>إلى كل أب خرج من بيته قبل طلوع الشمس، وعاد مكسور الظهر مع غروبها.</p>
+                  <p>إلى كل أب خبأ وجعه في جيبه، وابتسم ليزرع الطمأنينة في عيون أطفاله.</p>
+                  <p>إلى من ضحّى بكل راحة، بكل طموح، بكل فرصة… كي يصنع لأبنائه فرصة.</p>
+                  <p>إلى من أنفق عمره ليكون أولاده أفضل منه، لكنهم ربما لم ينتبهوا.</p>
+                  <p className="font-bold text-teal/90 mt-2 not-italic">وإلى الأبناء…</p>
+                  <p>إلى من اعتقد أن وجود الأب دائم، وأن صمته قسوة لا حبًّا.</p>
+                  <p>إلى من لم يفهم بعد أن تعب الأب لا يُقال… بل يُعاش.</p>
+                  <p>إلى من ظن أن الأمان حق، دون أن يسأل من يدفع ثمنه كل يوم.</p>
+                  <p className="mt-2">هذه الرواية تذكارٌ صادق، ولوْمة حنونة.</p>
+                  <p>لعل من نسى يتذكّر… ومن جحد يلين… ومن تعب، يبتسم.</p>
+                  <div className="w-24 h-0.5 bg-teal/30 mx-auto my-6"></div>
+                  <p className="text-white font-bold text-2xl">"فصلت… عشان تعيشوا"</p>
+              </div>
+          </div>
+      </div>
+
+      {/* 4. Chapters Grid - Including Introduction as first card */}
+      <div>
+          <div className="flex items-center gap-3 mb-6 px-2">
+              <div className="h-8 w-1 bg-violet rounded-full"></div>
+              <h3 className="text-2xl font-bold text-white">فصول القصة</h3>
+          </div>
+          
+          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+            {chapters.map((chapter) => (
+              <button 
+                key={chapter.id}
+                onClick={() => onSelectChapter(chapter)}
+                className="bg-surface border border-border-light rounded-xl shadow-lg overflow-hidden group transform transition-transform duration-300 hover:-translate-y-2 hover:border-teal/30 flex flex-col h-full w-full text-start focus:outline-none focus:ring-2 focus:ring-teal cursor-pointer"
+              >
+                {/* Image Container - Matching Library's h-48 and overlay styles */}
+                <div className="h-48 w-full overflow-hidden relative flex-shrink-0">
+                    <div className="absolute inset-0 bg-gradient-to-t from-surface via-transparent to-transparent opacity-60 z-10" />
                     <img 
-                        src="https://scontent.fcai19-5.fna.fbcdn.net/v/t39.30808-6/586193814_25128465753455937_2211687604428638537_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeGG2RMXT0WbZa3vxz1KG-_MOnQoduHousE6dCh24ei6wU303AixuJjW3Pj3kR4rsrbyIeZ1ix0kYeeBHVGahB2W&_nc_ohc=i5Y_EjR0HHoQ7kNvwFy2pGY&_nc_oc=AdlHWibg9F-vT0IqNVBhx2hd2uepxvHt0-8Iyad0VCm_z_kfp2qQCapLMRPB0MDtcrU&_nc_zt=23&_nc_ht=scontent.fcai19-5.fna&_nc_gid=OpG4zQth1uwVyAgMSiQLpQ&oh=00_AfjIeq_CegbTj3LsNR7BLl5CgK13o32GjVQgMb006-1ulg&oe=692B8584" 
-                        alt="Offline-Me Cover" 
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        src={getChapterImage(chapter)} 
+                        alt={chapter.title} 
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                 </div>
-             </div>
-
-             {/* Text Info Column */}
-             <div className="w-full md:w-2/3 text-center md:text-start space-y-6 order-2 md:order-2">
-                 <h1 className="text-3xl md:text-5xl font-bold text-white mb-2 font-tajawal leading-tight drop-shadow-lg">
-                    فصلت عشان أعيش <span className="text-teal">(Offline-Me)</span>
-                 </h1>
-                 <p className="text-xl md:text-2xl text-text-light font-medium italic mb-8 inline-block leading-relaxed opacity-90">
-                    "ما سبتش حياتي عشان أعيش، أنا فصلت عشان أشوفها"
-                 </p>
-
-                 <div className="space-y-4 text-base md:text-lg text-text-light/90 font-medium">
-                    <p><span className="text-teal font-bold">تأليف:</span> محمد عبد الستار – فاطمة فهمي – محمود فليفل</p>
-                    <p><span className="text-violet font-bold">تحت إشراف:</span> د/ سحر مصطفى – د/ سماح الشهاوي</p>
                     
-                    <div className="pt-6 mt-6 border-t border-border-light/30 text-sm md:text-base opacity-70">
-                        <p className="mb-1">مشروع تخرج ماجستير الاعلام الرقمي والامن المعلوماتي 2025/2026</p>
-                        <p>كلية الاعلام – جامعة القاهرة</p>
-                    </div>
-                 </div>
-             </div>
-        </div>
-
-        {/* Grid for Dedication and Introduction */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
-            
-            {/* Dedication Section */}
-            <div className="bg-surface/30 border border-border-light/50 rounded-2xl p-6 md:p-8 hover:bg-surface/40 transition-colors h-full flex flex-col">
-                <h3 className="text-xl font-bold text-teal mb-6 flex items-center justify-center gap-2">
-                    <Icon name="book" className="w-6 h-6 text-teal" />
-                    الإهداء
-                </h3>
-                <div className="text-text-light/90 leading-loose text-sm md:text-lg italic space-y-4 font-tajawal text-center">
-                    <p>إلى كل أب خرج من بيته قبل طلوع الشمس، وعاد مكسور الظهر مع غروبها.</p>
-                    <p>إلى كل أب خبأ وجعه في جيبه، وابتسم ليزرع الطمأنينة في عيون أطفاله.</p>
-                    <p>إلى من ضحّى بكل راحة، بكل طموح، بكل فرصة… كي يصنع لأبنائه فرصة.</p>
-                    <p>إلى من أنفق عمره ليكون أولاده أفضل منه، لكنهم ربما لم ينتبهوا.</p>
-                    <p className="pt-2 font-semibold text-white/80">وإلى الأبناء…</p>
-                    <p>إلى من اعتقد أن وجود الأب دائم، وأن صمته قسوة لا حبًّا.</p>
-                    <p>إلى من لم يفهم بعد أن تعب الأب لا يُقال… بل يُعاش.</p>
-                    <p>إلى من ظن أن الأمان حق، دون أن يسأل من يدفع ثمنه كل يوم.</p>
-                    <div className="pt-4 border-t border-white/5 mt-4">
-                        <p className="text-white">هذه الرواية تذكارٌ صادق، ولوْمة حنونة.</p>
-                        <p>لعل من نسى يتذكّر… ومن جحد يلين… ومن تعب، يبتسم.</p>
-                        <p className="text-teal font-bold pt-2 text-center">— فصلت… عشان تعيشوا. —</p>
+                    {/* Badge */}
+                    <div className="absolute top-3 right-3 z-20">
+                        <span className={`backdrop-blur-md text-white text-xs font-bold px-3 py-1.5 rounded border border-white/10 ${chapter.id === 0 ? 'bg-violet/80' : 'bg-black/60'}`}>
+                            {getChapterBadgeLabel(chapter.id)}
+                        </span>
                     </div>
                 </div>
-            </div>
 
-            {/* Introduction Section */}
-            <div className="bg-surface/30 border border-border-light/50 rounded-2xl p-6 md:p-8 hover:bg-surface/40 transition-colors h-full flex flex-col">
-                 <h3 className="text-xl font-bold text-violet mb-6 flex items-center justify-center gap-2">
-                    <Icon name="info-circle" className="h-6 w-6 text-violet" />
-                    المقدمة
-                </h3>
-                <div className="text-text-light/90 leading-loose text-sm md:text-lg italic space-y-4 font-tajawal text-center flex-grow">
-                    <p>
-                        حين يتحوّل الهاتف من وسيلة تواصل إلى قيدٍ خفي، وعندما تُقاس الحياة بعدد الإعجابات بدلًا من عدد اللحظات الصادقة، تصبح الحاجة مُلحّة لطرح سؤال وجودي: من نكون حين نغلق الشاشة؟ ومن نظل إذا فصلنا الإنترنت؟
+                {/* Content Container - Matching Library's layout */}
+                <div className="p-5 flex flex-col flex-grow w-full">
+                    {/* Title with min-height */}
+                    <h4 className="text-lg md:text-xl font-bold text-text-dark group-hover:text-teal transition-colors mb-2 line-clamp-2 min-h-[3.5rem]">
+                        {chapter.title.includes(':') ? chapter.title.split(':')[1].trim() : chapter.title}
+                    </h4>
+                    
+                    <p className="text-text-light mb-4 text-xs md:text-sm opacity-80 line-clamp-3">
+                        {chapter.summary}
                     </p>
-                    <p>
-                        رواية <span className="font-bold text-white">فصلت عشان أعيش (Offline-Me)</span> ليست مجرد حكاية فتاة في سن المراهقة، بل هي مرآة لواقع جيل بأكمله. تمتزج في سطورها التوترات النفسية بالمواقف اليومية، ويتشابك الخيال الأدبي مع تحليل علمي دقيق.
-                    </p>
-                    <p>
-                        تم بناء الرواية على أرضية علمية متينة، حيث تم توظيف أكثر من 30 مصطلحًا ومفهومًا نفسيًا وتكنولوجيًا. لم تكن المصطلحات العلمية مجرد معلومات موازية، بل عناصر فاعلة في تطور السرد.
-                    </p>
-                    <p className="font-semibold text-white pt-2 border-t border-white/10 mt-2">
-                        هذه ليست فقط رواية، بل تجربة تربوية نفسية متكاملة، تحاول استعادة العلاقة الطبيعية بين الإنسان والتكنولوجيا.
-                    </p>
-                </div>
-            </div>
-
-        </div>
-
-        {/* Copyright */}
-        <div className="text-center text-[10px] md:text-xs text-text-light/40 pt-4 pb-8 border-b border-border-light/20 mb-8 max-w-2xl mx-auto">
-            <p>جميع الحقوق محفوظة © 2026</p>
-            <p>لا يجوز نسخ أو إعادة إنتاج أي جزء من هذا العمل أو تخزينه في نظام استرجاع أو نقله بأي شكل أو بأي وسيلة، إلكترونية كانت أو ميكانيكية، بما في ذلك التصوير الضوئي أو التسجيل، دون إذن خطي مسبق من المؤلف.</p>
-        </div>
-
-      </div>
-      
-      {/* Modified Grid: Optimized for A4 Portrait Cards */}
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6">
-        {chapters.map((chapter) => (
-          <button 
-            key={chapter.id}
-            onClick={() => onSelectChapter(chapter)}
-            className="flex flex-col bg-surface border border-border-light rounded-xl shadow-lg overflow-hidden group transition-all duration-300 hover:shadow-xl hover:border-teal/50 focus:outline-none focus:ring-2 focus:ring-teal hover:-translate-y-2 h-full"
-          >
-            {/* Image Container: A4 Portrait Aspect Ratio (210/297 approx 0.707) */}
-            <div className="relative w-full aspect-[210/297] bg-black overflow-hidden">
-                <div 
-                    className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
-                    style={{ backgroundImage: `url(${getChapterImage(chapter)})` }}
-                />
-                
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60" />
-                
-                {/* Badge - Positioned Bottom Right, Blue-Purple Gradient, Rounded - Responsive Size */}
-                <div className="absolute bottom-2 right-2 sm:bottom-3 sm:right-3 z-10">
-                    <span className="inline-block bg-gradient-to-r from-[#3b82f6] to-[#8b5cf6] text-white text-[10px] sm:text-lg font-bold px-2.5 py-1 sm:px-4 sm:py-1.5 rounded-full border border-white/10 shadow-lg">
-                        {getChapterBadgeLabel(chapter.id)}
-                    </span>
-                </div>
-
-                {/* Play Icon overlay on hover */}
-                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/20 backdrop-blur-[2px]">
-                    <div className="bg-teal/90 rounded-full p-2 sm:p-3 shadow-lg transform scale-50 group-hover:scale-100 transition-transform duration-300">
-                         <Icon name="arrow-left" className="h-6 w-6 sm:h-8 sm:w-8 text-white" />
+                    
+                    <div className="mt-auto pt-2">
+                        <div 
+                            className="text-teal font-bold text-sm flex items-center gap-2 group/btn hover:underline decoration-teal/50 underline-offset-4"
+                        >
+                            {t('readChapterButton')}
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 transition-transform duration-300 group-hover/btn:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+                            </svg>
+                        </div>
                     </div>
                 </div>
-            </div>
-
-            {/* Bottom Section: Text Content */}
-            <div className="p-2.5 sm:p-4 flex flex-col flex-grow text-start w-full bg-surface border-t border-border-light">
-                <h3 className="text-sm sm:text-lg font-bold text-text-dark group-hover:text-teal transition-colors duration-200 mb-1 leading-tight line-clamp-2">
-                    {chapter.title.split(':')[1] || chapter.title}
-                </h3>
-                <p className="text-text-light text-[10px] sm:text-sm line-clamp-2 leading-relaxed opacity-80">
-                    {chapter.summary}
-                </p>
-            </div>
-          </button>
-        ))}
+              </button>
+            ))}
+          </div>
       </div>
 
-      <hr className="border-border-light my-12 opacity-50" />
-
-      <CharacterProfiles />
+      {/* Copyright Footer within component */}
+      <div className="text-center text-xs text-text-light/30 pt-8 border-t border-border-light/10">
+          <p>جميع الحقوق محفوظة © 2026</p>
+      </div>
       
     </div>
   );

@@ -75,17 +75,12 @@ const Footer: React.FC<FooterProps> = ({ navigateTo }) => {
         <div className="mt-12 pt-8 border-t border-border-light/50 flex flex-col items-center justify-center gap-6 opacity-80 hover:opacity-100 transition-opacity">
             <p className="text-xs text-text-light/60 text-center">{t('copyrightText', { year: new Date().getFullYear() })}</p>
             
-            {/* Styled Footer Title - Positioned below copyright */}
-            <div 
-                className="relative select-none flex flex-col items-center justify-center leading-none scale-90"
-                style={{
-                    transform: "rotate(-6deg) skewX(-6deg)",
-                }}
-            >
+            {/* Footer Title - Simplified, No Tilt */}
+            <div className="relative select-none flex flex-col items-center justify-center leading-none scale-90">
                  <div className="grid place-items-center" style={{ transform: 'scaleY(1.3)' }}>
                      {/* Back Layer: Gradient Stroke */}
                      <span 
-                        className="col-start-1 row-start-1 text-lg font-bold italic tracking-widest uppercase whitespace-nowrap"
+                        className="col-start-1 row-start-1 text-lg font-bold tracking-widest uppercase whitespace-nowrap"
                         style={{
                             fontFamily: "'Oswald', sans-serif",
                             WebkitTextStroke: '1.5px transparent',
@@ -103,7 +98,7 @@ const Footer: React.FC<FooterProps> = ({ navigateTo }) => {
                      
                      {/* Front Layer: White Fill */}
                      <span 
-                        className="col-start-1 row-start-1 text-lg font-bold italic tracking-widest uppercase whitespace-nowrap"
+                        className="col-start-1 row-start-1 text-lg font-bold tracking-widest uppercase whitespace-nowrap"
                         style={{
                             fontFamily: "'Oswald', sans-serif",
                             color: '#ffffff',

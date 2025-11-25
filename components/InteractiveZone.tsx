@@ -71,9 +71,11 @@ const Quiz: React.FC<{ navigateTo: (section: Section) => void }> = ({ navigateTo
     return (
         <div className="bg-surface border border-border-light rounded-2xl shadow-xl p-6 md:p-8 w-full flex flex-col transition-all duration-300 transform hover:-translate-y-1">
             <div className="flex flex-col items-center text-center mb-6">
-                <Icon name="article-psychology" className="h-12 w-12 md:h-16 md:w-16 mb-4 text-teal" />
-                <h3 className="text-xl md:text-2xl font-bold text-text-dark">{t('quizTitle')}</h3>
-                <p className="text-text-light mt-1 text-sm">{t('quizCardSubtitle')}</p>
+                <div className="flex items-center justify-center gap-3 mb-2">
+                    <Icon name="article-psychology" className="h-8 w-8 md:h-10 md:w-10 text-teal" />
+                    <h3 className="text-lg md:text-xl font-bold text-text-dark">{t('quizTitle')}</h3>
+                </div>
+                <p className="text-text-light text-sm">{t('quizCardSubtitle')}</p>
             </div>
 
             {!showResult ? (
@@ -199,9 +201,11 @@ const UsageTracker: React.FC<{ navigateTo: (section: Section) => void }> = ({ na
     return (
         <div className="bg-surface border border-border-light rounded-2xl shadow-xl p-6 md:p-8 w-full flex flex-col transition-all duration-300 transform hover:-translate-y-1">
             <div className="flex flex-col items-center text-center mb-6">
-                <Icon name="test-timer" className="h-12 w-12 md:h-16 md:w-16 mb-4 text-teal" />
-                <h3 className="text-xl md:text-2xl font-bold text-text-dark">{t('usageTrackerTitle')}</h3>
-                <p className="text-text-light mt-1 text-sm">{t('usageTrackerSubtitle')}</p>
+                <div className="flex items-center justify-center gap-3 mb-2">
+                    <Icon name="test-timer" className="h-8 w-8 md:h-10 md:w-10 text-teal" />
+                    <h3 className="text-lg md:text-xl font-bold text-text-dark">{t('usageTrackerTitle')}</h3>
+                </div>
+                <p className="text-text-light text-sm">{t('usageTrackerSubtitle')}</p>
             </div>
 
             <div className="flex flex-col items-center justify-center flex-grow">
@@ -318,12 +322,12 @@ const InteractiveZone: React.FC<{ navigateTo: (section: Section) => void }> = ({
     const { t } = useLanguage();
     return (
       <>
-        <div className="text-center mb-12">
-            <div className="flex justify-center mb-4">
-                <Icon name="puzzle" className="h-16 w-16 md:h-20 md:w-20 text-teal" />
+        <div className="flex flex-col items-center text-center mb-12">
+            <div className="flex items-center justify-center gap-3 mb-2">
+                <Icon name="puzzle" className="h-8 w-8 md:h-10 md:w-10 text-teal" />
+                <h2 className="text-xl md:text-2xl font-bold text-text-dark uppercase tracking-wider">{t('interactiveZoneTitle')}</h2>
             </div>
-            <h2 className="text-3xl md:text-4xl font-bold text-text-dark uppercase tracking-wider">{t('interactiveZoneTitle')}</h2>
-            <p className="mt-2 text-lg text-text-light">{t('interactiveZoneSubtitle')}</p>
+            <p className="text-sm md:text-base text-text-light">{t('interactiveZoneSubtitle')}</p>
         </div>
         <div className="max-w-5xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">

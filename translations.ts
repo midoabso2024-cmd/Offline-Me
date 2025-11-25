@@ -1,5 +1,4 @@
 
-
 // AR Content
 import chapter1AR from './data/ar/chapters/1';
 import chapter2AR from './data/ar/chapters/2';
@@ -44,8 +43,8 @@ import article9EN from './data/en/articles/9';
 export const translations = {
   ar: {
     // General
-    tagline: 'رحلتك نحو التوازن الرقمي',
-    subTagline: 'حوّل صراعك مع الشاشة إلى رحلة للتعافي واكتشف أدوات عملية لتحقيق توازن أفضل.',
+    tagline: 'Offline-Me\nفصلت عشان أعيش',
+    subTagline: 'رواية معاصرة تمزج بين السرد الأدبي والتحليل العلمي تغوص في أعماق إدمان الهواتف وانفصالنا عن الواقع، من خلال قصة نفسية إنسانية مؤثرة. استكشف عالم الرواية، واختبر إدمانك الرقمي، وتعلّم التوازن النفسي من خلال مقالات علمية مبسطة.',
     mainQuote: 'قصة : فصلت عشان اعيش Offline-Me',
     subQuote: 'انضم إلى رحلة فريدة لاستعادة التوازن والاتصال بالواقع.',
     ctaReadStory: 'اقرأ القصة كاملة',
@@ -63,6 +62,7 @@ export const translations = {
     nextChapter: 'الفصل التالي',
     allChapters: 'تصفح جميع الفصول',
     chapterLabel: 'فصل {id}',
+    introLabel: 'المقدمة',
     loadingContent: 'جاري التحميل...',
 
     // Page Titles
@@ -85,7 +85,7 @@ export const translations = {
     aboutIntroText: 'مشروع تخرج رقمي متكامل يهدف لمعالجة ظاهرة إدمان الهواتف الذكية من خلال السرد القصصي البصري والمحتوى التفاعلي المُعزَّز بالذكاء الاصطناعي.',
     aboutIntroButton: 'اعرف المزيد عن المشروع وصناعه',
     aboutFacultyLogoAlt: 'شعار كلية الإعلام - جامعة القاهرة',
-    exploreTheStory: 'استكشف القصة',
+    exploreTheStory: 'اقرأ القصة',
     exploreProjectSections: 'أقسام المشروع',
 
     // Header Navigation
@@ -95,6 +95,9 @@ export const translations = {
     navInteractive: 'اختبر نفسك',
     navLibrary: 'المكتبة',
     navAbout: 'عن المشروع',
+    navChatbot: 'المساعد الذكي',
+    navStudio: 'الاستوديو',
+    navTestimonials: 'قالوا عنا',
     
     // Story Archive & Characters
     storyArchiveTitle: 'أرشيف القصة',
@@ -107,6 +110,17 @@ export const translations = {
       { id: 'omar', name: 'عمر (الأخ)', age: 12, role: 'المحاولة البريئة والتواصل الصادق', description: 'يمثل البراءة ومحاولة فهم ما يحدث، ويقدم طرقًا بسيطة لإعادة التواصل مع أخته.' },
     ],
     storyChapters: [
+        {
+            id: 0,
+            title: 'مقدمة: من نكون حين نغلق الشاشة؟',
+            summary: 'رواية فصلت عشان أعيش (Offline-Me) ليست مجرد حكاية، بل هي مرآة لواقع جيل بأكمله عالق بين العزلة الرقمية والبحث عن الذات. تجربة تربوية نفسية متكاملة.',
+            fullContent: `حين يتحوّل الهاتف من وسيلة تواصل إلى قيدٍ خفي، وعندما تُقاس الحياة بعدد الإعجابات بدلًا من عدد اللحظات الصادقة، تصبح الحاجة مُلحّة لطرح سؤال وجودي: من نكون حين نغلق الشاشة؟ ومن نظل إذا فصلنا الإنترنت؟
+رواية فصلت عشان أعيش (Offline-Me) ليست مجرد حكاية فتاة في سن المراهقة تُدعى "فريدة"، بل هي مرآة لواقع جيل بأكمله عالق بين العزلة الرقمية والبحث عن الذات. تمتزج في سطورها التوترات النفسية بالمواقف اليومية، ويتشابك الخيال الأدبي مع تحليل علمي دقيق، في سردٍ درامي واقعي لا يخلو من البُعد الخيالي والسينمائي، مستلهمًا روح الكتابة البصرية لأسلوب الروايات المصرية.
+تم بناء الرواية على أرضية علمية متينة، حيث تم توظيف أكثر من 30 مصطلحًا ومفهومًا نفسيًا وتكنولوجيًا مدعومة بمراجع موثوقة. لم تكن المصطلحات العلمية مجرد معلومات موازية، بل عناصر فاعلة في تطور السرد، ومفتاحًا لفهم قرارات الشخصيات وتحولاتهم النفسية.
+كل فصل في الرواية ينتهي بملحق علمي مبسط، يشرح المفاهيم النفسية والسلوكية والتكنولوجية التي تجسّدت ضمن الأحداث. فحين تبكي فريدة من تعليق ساخر على الإنترنت، نكتشف علميًا أثر "حلقة الدوبامين". وحين تهجر هاتفها مجبرة، نقرأ عن "أعراض الانسحاب الرقمي" كما يُصنفها علم النفس السلوكي.
+هذه ليست فقط رواية، بل تجربة تربوية نفسية متكاملة، تحاول استعادة العلاقة الطبيعية بين الإنسان والتكنولوجيا. لا تلقي باللوم على الجهاز، بل تنحاز للوعي، للاعتدال، وللقدرة على الاختيار.`,
+            images: ["https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1170&auto=format&fit=crop"]
+        },
         { 
             id: 1, 
             title: 'الفصل الأول: الهروب إلى الضوء الأزرق', 
@@ -474,8 +488,8 @@ export const translations = {
   },
   en: {
     // General
-    tagline: 'Your Journey Towards Digital Balance',
-    subTagline: 'Turn your screen struggle into a recovery journey and discover practical tools for a better balance.',
+    tagline: 'Offline-Me\nDisconnected to Live',
+    subTagline: 'A contemporary novel blending literary narrative with scientific analysis, diving into the depths of phone addiction and our disconnection from reality, through a poignant psychological human story. Explore the novel\'s world, test your digital addiction, and learn psychological balance through simplified scientific articles.',
     mainQuote: 'Story: Offline-Me',
     subQuote: 'Join a unique journey to restore balance and connect with reality.',
     ctaReadStory: 'Read the Full Story',
@@ -493,6 +507,7 @@ export const translations = {
     nextChapter: 'Next Chapter',
     allChapters: 'Browse All Chapters',
     chapterLabel: 'Ch. {id}',
+    introLabel: 'Introduction',
     loadingContent: 'Loading...',
 
     // Page Titles
@@ -515,7 +530,7 @@ export const translations = {
     aboutIntroText: 'An integrated digital project addressing smartphone addiction through visual storytelling and interactive AI-enhanced content.',
     aboutIntroButton: 'Learn more about the project and its creators',
     aboutFacultyLogoAlt: 'Faculty of Mass Communication - Cairo University Logo',
-    exploreTheStory: 'Explore The Story',
+    exploreTheStory: 'Read the Story',
     exploreProjectSections: 'Project Sections',
 
     // Header Navigation
@@ -525,6 +540,9 @@ export const translations = {
     navInteractive: 'Interactive',
     navLibrary: 'Library',
     navAbout: 'About',
+    navChatbot: 'AI Assistant',
+    navStudio: 'Studio',
+    navTestimonials: 'Testimonials',
 
     // Story Archive & Characters
     storyArchiveTitle: 'Story Archive',
@@ -537,6 +555,17 @@ export const translations = {
       { id: 'omar', name: 'Omar (Brother)', age: 12, role: 'Innocent attempts and sincere communication', description: 'Represents innocence and an attempt to understand what is happening, offering simple ways to reconnect with his sister.' },
     ],
     storyChapters: [
+        {
+            id: 0,
+            title: 'Introduction: Who are we when we turn off the screen?',
+            summary: 'Offline-Me is not just a story, but a mirror of the reality of a whole generation stuck between digital isolation and self-discovery.',
+            fullContent: `When the phone turns from a means of communication into a hidden shackle, and when life is measured by the number of likes instead of the number of honest moments, the need becomes urgent to ask an existential question: Who are we when we close the screen? And who do we remain if we disconnect the internet?
+The novel Offline-Me is not just the story of a teenage girl named "Farida", but rather a mirror of the reality of an entire generation stuck between digital isolation and the search for self. In its lines, psychological tensions are mixed with daily situations, and literary imagination intertwines with precise scientific analysis, in a realistic dramatic narrative that is not without an imaginary and cinematic dimension, inspired by the spirit of visual writing for the style of Egyptian novels.
+The novel was built on solid scientific ground, where more than 30 psychological and technological terms and concepts supported by reliable references were employed. Scientific terms were not just parallel information, but active elements in the development of the narrative, and a key to understanding the characters' decisions and psychological transformations.
+Each chapter in the novel ends with a simplified scientific appendix, explaining the psychological, behavioral and technological concepts embodied in the events. When Farida cries from a sarcastic comment on the Internet, we discover scientifically the effect of the "dopamine loop". And when she is forced to abandon her phone, we read about "digital withdrawal symptoms" as classified by behavioral psychology.
+This is not just a novel, but an integrated psychological educational experience, trying to restore the natural relationship between humans and technology. It does not blame the device, but sides with awareness, moderation, and the ability to choose.`,
+            images: ["https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1170&auto=format&fit=crop"]
+        },
         { 
             id: 1, 
             title: 'Chapter 1: Escape to the Blue Light', 
@@ -553,7 +582,7 @@ export const translations = {
         { id: 3, title: 'Chapter 3: Free Fall', summary: 'Farida\'s dissociation intensifies into a "psychological coma," leading to her failing a class, but a tragic news about another student serves as a shocking wake-up call.', fullContent: chapter3EN },
         { id: 4, title: 'Chapter 4: Shards of the Black Mirror', summary: 'The conflict peaks when Farida\'s father confronts her lies and smashes her phone, triggering a complete emotional breakdown and a painful realization for Farida.', fullContent: chapter4EN },
         { id: 5, title: 'Chapter 5: Return to Life (Offline)', summary: 'The family begins a slow reconciliation with a new "no-screen" rule, leading to an honest, trust-rebuilding conversation between Farida and her father.', fullContent: chapter5EN },
-        { id: 6, title: 'Chapter 6: The New Seed (Shared Action)', summary: 'The family\'s healing becomes a shared activity as they plant a white rose symbolizing hope. Farida achieves small victories, and warmth returns to the dinner table.', fullContent: chapter6EN },
+        { id: 6, title: 'Chapter 6: The New Seed (Shared Action)', summary: 'The family\'s healing becomes a shared activity as they plant a white rose, a tangible symbol of their new beginning and hope. Farida achieves small victories, and warmth returns to the dinner table.', fullContent: chapter6EN },
         { id: 7, title: 'Chapter 7: The Confrontation (Declaring Victory)', summary: 'Farida publicly shares her story in a powerful school presentation, transforming her personal struggle into a source of inspiration and guidance for others.', fullContent: chapter7EN },
         { id: 8, title: 'Chapter 8: The Calm (True Blooming)', summary: 'A new calm settles over the family. The story concludes with Farida on the rooftop at sunset, her white rose in full bloom, symbolizing her renewed life.', fullContent: chapter8EN },
     ],
@@ -879,7 +908,7 @@ export const translations = {
     aspect_16_9: "Wide",
     aspect_9_16: "Story",
     
-    // About Project (English Placeholder or Translation if needed, keeping Arabic for now as requested in previous turns or standardizing)
+    // About Project
     aboutProjectContent: `## First: Identity and Core Message
 **"Offline-Me: Disconnected to Live" is an integrated digital graduation project aimed at addressing the phenomenon of smartphone addiction (Nomophobia) and the resulting social isolation, through a unique methodology that combines deep visual storytelling and interactive educational content enhanced by artificial intelligence.**
 *   Core Story: The platform follows the dramatic journey of the protagonist Farida (17 years old) over eight chapters, where her digital isolation escalates, leads to a breakdown, and ends with her recovery and gaining balance.

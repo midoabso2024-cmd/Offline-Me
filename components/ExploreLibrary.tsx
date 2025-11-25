@@ -31,13 +31,10 @@ const ExploreLibrary: React.FC<ExploreLibraryProps> = ({ articles, onSelectArtic
     const { t } = useLanguage();
     const [activeCategory, setActiveCategory] = useState<Category>('all');
 
-    // Separate Article 9 (Featured) from the rest
-    const featuredArticle = articles.find(a => a.id === 9);
-    const otherArticles = articles.filter(a => a.id !== 9);
-
+    // Filter articles based on category without separating the featured one
     const filteredArticles = activeCategory === 'all'
-        ? otherArticles
-        : otherArticles.filter(article => article.category === activeCategory);
+        ? articles
+        : articles.filter(article => article.category === activeCategory);
 
     const getArticleImage = (id: number) => {
         const images: { [key: number]: string } = {
@@ -62,40 +59,6 @@ const ExploreLibrary: React.FC<ExploreLibraryProps> = ({ articles, onSelectArtic
                 <p className="mt-2 text-lg text-text-light">{t('librarySubtitle')}</p>
             </div>
 
-            {/* Featured Article (ID 9) */}
-            {featuredArticle && (activeCategory === 'all' || activeCategory === 'articles') && (
-                <button
-                    onClick={() => onSelectArticle(featuredArticle)}
-                    className="relative w-full h-[400px] md:h-[500px] rounded-2xl overflow-hidden group shadow-2xl border border-border-light transition-transform duration-300 hover:scale-[1.01] focus:outline-none focus:ring-2 focus:ring-teal cursor-pointer"
-                >
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent z-10" />
-                    <img 
-                        src={getArticleImage(featuredArticle.id)} 
-                        alt={featuredArticle.title}
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
-                    <div className="absolute bottom-0 left-0 right-0 p-6 md:p-10 z-20 text-start">
-                        <div className="mb-4">
-                             <span className="bg-teal text-white text-xs md:text-sm font-bold px-3 py-1.5 rounded-full uppercase tracking-wide">
-                                {t('catArticles')}
-                            </span>
-                        </div>
-                        <h3 className="text-2xl md:text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight drop-shadow-lg">
-                            {featuredArticle.title}
-                        </h3>
-                        <p className="text-gray-200 text-sm md:text-lg mb-2 font-medium drop-shadow-md">
-                            {t('byAuthor', { author: featuredArticle.author })}
-                        </p>
-                        <div className="flex items-center gap-2 text-teal font-bold mt-4 group-hover:text-white transition-colors">
-                            <span>{t('readMore')}</span>
-                             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
-                            </svg>
-                        </div>
-                    </div>
-                </button>
-            )}
-
             <div className="flex justify-center items-center gap-2 md:gap-4 flex-wrap">
                 <CategoryButton onClick={() => setActiveCategory('all')} isActive={activeCategory === 'all'}>{t('catAll')}</CategoryButton>
                 <CategoryButton onClick={() => setActiveCategory('articles')} isActive={activeCategory === 'articles'}>{t('catArticles')}</CategoryButton>
@@ -110,7 +73,7 @@ const ExploreLibrary: React.FC<ExploreLibraryProps> = ({ articles, onSelectArtic
                         className="bg-surface border border-border-light rounded-xl shadow-lg overflow-hidden group transform transition-transform duration-300 hover:-translate-y-2 hover:border-teal/30 flex flex-col h-full w-full text-start focus:outline-none focus:ring-2 focus:ring-teal cursor-pointer"
                     >
                         {/* Image Container */}
-                        <div className="h-48 w-full overflow-hidden relative">
+                        <div className="h-48 w-full overflow-hidden relative flex-shrink-0">
                              <div className="absolute inset-0 bg-gradient-to-t from-surface via-transparent to-transparent opacity-60 z-10" />
                              <img 
                                 src={getArticleImage(article.id)} 
@@ -126,7 +89,8 @@ const ExploreLibrary: React.FC<ExploreLibraryProps> = ({ articles, onSelectArtic
                         </div>
                         
                         <div className="p-5 flex flex-col flex-grow w-full">
-                            <h3 className="text-lg md:text-xl font-bold text-text-dark group-hover:text-teal transition-colors mb-2 line-clamp-2">{article.title}</h3>
+                            {/* Title with min-height to ensure alignment across row */}
+                            <h3 className="text-lg md:text-xl font-bold text-text-dark group-hover:text-teal transition-colors mb-2 line-clamp-2 min-h-[3.5rem]">{article.title}</h3>
                             <p className="text-text-light mb-4 text-xs md:text-sm opacity-80">{t('byAuthor', { author: article.author })}</p>
                             
                             <div className="mt-auto pt-2">

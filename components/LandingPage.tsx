@@ -1,5 +1,4 @@
-
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState, useLayoutEffect } from 'react';
 import type { Section } from '../types';
 import { useLanguage } from '../contexts/LanguageContext';
 import LandingNavGrid from './LandingLibrary';
@@ -107,15 +106,24 @@ const LandingPage: React.FC<LandingPageProps> = ({ navigateTo, scrollToSection }
     return () => window.removeEventListener('resize', checkScroll);
   }, []);
 
-  useEffect(() => {
-    setTimeout(() => {
-      if (scrollToSection === 'quiz') scrollToRef(quizRef);
-      if (scrollToSection === 'chatbot') scrollToRef(chatbotRef);
-      if (scrollToSection === 'studio') scrollToRef(studioRef);
-      if (scrollToSection === 'about') scrollToRef(aboutRef);
-      if (scrollToSection === 'explore') scrollToRef(exploreRef);
-      if (scrollToSection === 'testimonials') scrollToRef(testimonialsRef);
-    }, 100);
+  // useLayoutEffect fires synchronously after DOM mutations but before paint.
+  // This prevents the "jump" or flash of the top content.
+  useLayoutEffect(() => {
+    const performScroll = () => {
+        if (scrollToSection === 'quiz') scrollToRef(quizRef);
+        else if (scrollToSection === 'chatbot') scrollToRef(chatbotRef);
+        else if (scrollToSection === 'studio') scrollToRef(studioRef);
+        else if (scrollToSection === 'about') scrollToRef(aboutRef);
+        else if (scrollToSection === 'explore') scrollToRef(exploreRef);
+        else if (scrollToSection === 'testimonials') scrollToRef(testimonialsRef);
+    };
+
+    // Execute immediately
+    performScroll();
+    
+    // Fallback for slow DOM updates (dynamic content)
+    const timer = setTimeout(performScroll, 50);
+    return () => clearTimeout(timer);
   }, [scrollToSection]);
 
 
@@ -132,8 +140,8 @@ const LandingPage: React.FC<LandingPageProps> = ({ navigateTo, scrollToSection }
              <div 
                 className="relative w-full max-w-[1600px] mx-auto overflow-hidden flex flex-col items-center justify-center"
                 style={{
-                    maskImage: 'radial-gradient(ellipse at center, black 65%, transparent 100%)',
-                    WebkitMaskImage: 'radial-gradient(ellipse at center, black 65%, transparent 100%)'
+                    maskImage: 'linear-gradient(to bottom, black 85%, transparent 100%)',
+                    WebkitMaskImage: 'linear-gradient(to bottom, black 85%, transparent 100%)'
                 }}
              >
                 
@@ -151,44 +159,21 @@ const LandingPage: React.FC<LandingPageProps> = ({ navigateTo, scrollToSection }
                 {/* Content Overlay */}
                 <div className="relative z-10 flex flex-col justify-center items-center text-center w-full px-4 pb-20 pt-16 sm:pb-32 sm:pt-24 min-h-[600px]">
                   
-                  <div className="relative mb-3 sm:mb-4 group z-20 p-4 animate-entrance opacity-0" style={{ animationDelay: '0ms' }}>
-                     <div className="absolute inset-0 bg-blue-500/20 blur-xl rounded-full opacity-40 animate-pulse"></div>
-                     <div className="relative h-20 w-20 sm:h-24 sm:w-24">
-                        <svg
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="1.5"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            className="w-full h-full drop-shadow-[0_0_10px_rgba(96,165,250,0.6)]"
-                        >
-                            <defs>
-                                <linearGradient id="logoGradient" x1="0" y1="0" x2="1" y2="1">
-                                    <stop offset="0%" stopColor="#60a5fa" /> 
-                                    <stop offset="100%" stopColor="#a78bfa" /> 
-                                </linearGradient>
-                            </defs>
-                            <rect x="6" y="3" width="12" height="18" rx="2" ry="2" stroke="url(#logoGradient)" strokeWidth="2" />
-                            <line x1="12" y1="18" x2="12.01" y2="18" stroke="url(#logoGradient)" strokeWidth="2.5" />
-                            <line x1="21" y1="3" x2="3" y2="21" stroke="#ef4444" strokeWidth="2.5" className="drop-shadow-[0_0_3px_rgba(239,68,68,0.8)]" />
-                        </svg>
-                     </div>
-                  </div>
+                  {/* Icon Removed as requested */}
 
-                  <div className="space-y-2 mb-6 sm:mb-8 animate-entrance opacity-0" style={{ animationDelay: '300ms' }}>
-                      <h3 className="text-xl sm:text-5xl font-bold text-white leading-tight tracking-wide drop-shadow-2xl whitespace-nowrap">
+                  <div className="space-y-2 mb-6 sm:mb-8 animate-entrance opacity-0" style={{ animationDelay: '0ms' }}>
+                      <h3 className="text-xl sm:text-5xl font-bold text-white leading-tight tracking-wide drop-shadow-2xl whitespace-pre-line">
                           {t('tagline')}
                       </h3>
-                      <p className="text-[10px] sm:text-sm text-gray-200 leading-relaxed whitespace-nowrap max-w-full overflow-hidden text-ellipsis px-4 opacity-90 drop-shadow-md">
+                      <p className="text-[10px] sm:text-sm text-gray-200 leading-relaxed whitespace-normal max-w-3xl mx-auto px-4 opacity-90 drop-shadow-md">
                           {t('subTagline')}
                       </p>
                   </div>
                   
-                  <div className="flex flex-wrap justify-center gap-4 animate-entrance opacity-0 mb-2" style={{ animationDelay: '450ms' }}>
+                  <div className="flex flex-wrap justify-center gap-4 animate-entrance opacity-0 mb-2" style={{ animationDelay: '150ms' }}>
                       <button
                         onClick={() => navigateTo('story')}
-                        className="group relative overflow-hidden text-white font-bold py-2.5 px-6 md:py-3 md:px-10 rounded-full text-sm md:text-base flex items-center gap-2 transition-all duration-300 hover:scale-105 shadow-[0_0_15px_rgba(139,92,246,0.4)] hover:shadow-[0_0_20px_rgba(139,92,246,0.6)] logo-float"
+                        className="min-w-[160px] md:min-w-[200px] justify-center group relative overflow-hidden text-white font-bold py-2.5 px-6 md:py-3 md:px-10 rounded-full text-sm md:text-base flex items-center gap-2 transition-all duration-300 hover:scale-105 shadow-[0_0_15px_rgba(139,92,246,0.4)] hover:shadow-[0_0_20px_rgba(139,92,246,0.6)] logo-float"
                       >
                         <div className="absolute inset-0 bg-gradient-to-r from-[#3b82f6] to-[#8b5cf6] opacity-100"></div>
                         <div className="absolute inset-0 bg-gradient-to-r from-[#8b5cf6] to-[#3b82f6] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
@@ -200,7 +185,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ navigateTo, scrollToSection }
 
                       <button
                         onClick={() => scrollToRef(quizRef)}
-                        className="group relative overflow-hidden text-white font-bold py-2.5 px-6 md:py-3 md:px-10 rounded-full text-sm md:text-base flex items-center gap-2 transition-all duration-300 hover:scale-105 shadow-[0_0_15px_rgba(249,115,22,0.4)] hover:shadow-[0_0_20px_rgba(249,115,22,0.6)] logo-float"
+                        className="min-w-[160px] md:min-w-[200px] justify-center group relative overflow-hidden text-white font-bold py-2.5 px-6 md:py-3 md:px-10 rounded-full text-sm md:text-base flex items-center gap-2 transition-all duration-300 hover:scale-105 shadow-[0_0_15px_rgba(249,115,22,0.4)] hover:shadow-[0_0_20px_rgba(249,115,22,0.6)] logo-float"
                       >
                         <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-red-500 opacity-100"></div>
                         <div className="absolute inset-0 bg-gradient-to-r from-red-500 to-orange-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
@@ -210,8 +195,6 @@ const LandingPage: React.FC<LandingPageProps> = ({ navigateTo, scrollToSection }
                         </svg>
                       </button>
                   </div>
-
-                  <p className="text-[10px] sm:text-xs text-gray-300 font-medium tracking-wider animate-entrance opacity-0 mt-4" style={{ animationDelay: '550ms' }}>{t('mainQuote')}</p>
                 </div>
              </div>
         </div>
@@ -289,12 +272,12 @@ const LandingPage: React.FC<LandingPageProps> = ({ navigateTo, scrollToSection }
       </AnimatedSection>
       <SectionSeparator />
        <AnimatedSection sectionRef={aboutRef} className="py-16">
-         <div className="text-center">
-            <div className="flex justify-center mb-4">
-                <Icon name="info-circle" className="h-16 w-16 md:h-20 md:w-20 text-teal" />
+         <div className="flex flex-col items-center text-center">
+            <div className="flex items-center justify-center gap-3 mb-2">
+                <Icon name="info-circle" className="h-8 w-8 md:h-10 md:w-10 text-teal" />
+                <h2 className="text-xl md:text-2xl font-bold text-text-dark uppercase tracking-wider">{t('aboutIntroTitle')}</h2>
             </div>
-            <h2 className="text-3xl md:text-4xl font-bold text-text-dark uppercase tracking-wider">{t('aboutIntroTitle')}</h2>
-            <p className="mt-4 max-w-3xl mx-auto text-lg text-text-light">{t('aboutIntroText')}</p>
+            <p className="text-sm md:text-base text-text-light max-w-3xl mx-auto">{t('aboutIntroText')}</p>
             <button
                 onClick={() => navigateTo('about')}
                 className="group relative overflow-hidden text-white font-bold py-3 px-8 rounded-full flex items-center gap-3 transition-all duration-300 hover:scale-105 hover:shadow-[0_0_15px_rgba(139,92,246,0.4)] mx-auto mt-8"

@@ -65,12 +65,13 @@ const Testimonials: React.FC = () => {
     if (testimonials.length === 0) return null;
 
     return (
-        <div className="py-16">
-            <div className="text-center mb-12">
-                <div className="flex justify-center mb-4">
-                    <Icon name="user" className="h-16 w-16 md:h-20 md:w-20 text-teal" />
+        <div className="py-8 md:py-12">
+            <div className="flex flex-col items-center text-center mb-6">
+                <div className="flex items-center justify-center gap-3 mb-2">
+                    <Icon name="user" className="h-8 w-8 md:h-10 md:w-10 text-teal" />
+                    <h2 className="text-xl md:text-2xl font-bold text-text-dark uppercase tracking-wider">{t('testimonialsTitle')}</h2>
                 </div>
-                <h2 className="text-3xl md:text-4xl font-bold text-text-dark uppercase tracking-wider">{t('testimonialsTitle')}</h2>
+                <p className="text-sm md:text-base text-text-light">{t('testimonialsSubtitle_nav')}</p>
             </div>
             
             <div className="max-w-[90rem] mx-auto relative px-4 group/container">

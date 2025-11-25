@@ -1,4 +1,3 @@
-
 import React, { useState, useCallback, useEffect } from 'react';
 import type { Section, Article, StoryChapter } from './types';
 import Header from './components/Header';
@@ -62,7 +61,15 @@ const AppContent: React.FC = () => {
   const navigateTo = useCallback((section: Section) => {
     setCurrentSection(section);
     clearView();
-    window.scrollTo(0, 0);
+    
+    // Only force scroll to top for pages that start at the top.
+    // For sections that exist within the LandingPage (interactive, chatbot, etc.),
+    // we skip this to prevent the "Jump to Top -> Scroll Down" visual glitch.
+    const sectionsWithinLandingPage = ['interactive', 'chatbot', 'studio', 'testimonials'];
+    
+    if (!sectionsWithinLandingPage.includes(section)) {
+        window.scrollTo(0, 0);
+    }
   }, []);
 
   const handleSelectArticle = (article: Article) => {
@@ -135,6 +142,8 @@ const AppContent: React.FC = () => {
         return <LandingPage navigateTo={navigateTo} scrollToSection="chatbot" />;
       case 'studio':
         return <LandingPage navigateTo={navigateTo} scrollToSection="studio" />;
+      case 'testimonials':
+        return <LandingPage navigateTo={navigateTo} scrollToSection="testimonials" />;
       case 'explore':
         return <ExploreLibrary articles={articles} onSelectArticle={handleSelectArticle} />;
       case 'about':

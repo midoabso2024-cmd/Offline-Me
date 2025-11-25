@@ -1,5 +1,5 @@
 
-export type Section = 'home' | 'story' | 'insights' | 'interactive' | 'explore' | 'about' | 'chatbot' | 'studio' | 'contact';
+export type Section = 'home' | 'story' | 'insights' | 'interactive' | 'explore' | 'about' | 'chatbot' | 'studio' | 'testimonials' | 'contact';
 
 export interface QuizQuestion {
   question: string;
