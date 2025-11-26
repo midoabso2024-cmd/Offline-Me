@@ -1,4 +1,3 @@
-
 import React from 'react';
 import type { Section } from '../types';
 import { useLanguage } from '../contexts/LanguageContext';
@@ -73,14 +72,14 @@ const Footer: React.FC<FooterProps> = ({ navigateTo }) => {
         
         {/* Copyright and Logo Section - Stacked Vertically */}
         <div className="mt-12 pt-8 border-t border-border-light/50 flex flex-col items-center justify-center gap-6 opacity-80 hover:opacity-100 transition-opacity">
-            <p className="text-xs text-text-light/60 text-center">{t('copyrightText', { year: new Date().getFullYear() })}</p>
+            <p className="text-xs text-text-light/60 text-center">{t('copyrightText', { year: 2026 })}</p>
             
             {/* Footer Logo - Image */}
             <div className="relative select-none flex flex-col items-center justify-center">
                  <img 
                     src="https://scontent.fcai19-7.fna.fbcdn.net/v/t39.30808-1/584710065_122104882509122002_8770142176411048078_n.jpg?stp=c58.110.914.914a_dst-jpg_s160x160_tt6&_nc_cat=105&ccb=1-7&_nc_sid=2d3e12&_nc_ohc=JneRh7NRjlkQ7kNvwGOr5-l&_nc_oc=AdmJTB3Htk7drE731AmtfLJRWozLqyRJd0v7g2NOd1Vys9psvXsXAZn3fmDiPYTTHPY&_nc_zt=24&_nc_ht=scontent.fcai19-7.fna&_nc_gid=unIOEiOPYIeKsrCNxljZgQ&oh=00_AfjIOFRRVZWRUOryQ_IaMMxf2C1jtWqoe4bxadKQGCLeaw&oe=692CF10C"
                     alt="Offline-Me"
-                    className="h-80 w-80 rounded-[3rem] object-cover border-2 border-white/20 shadow-lg"
+                    className="h-48 w-48 rounded-[2rem] object-cover border-2 border-white/20 shadow-lg"
                  />
             </div>
         </div>

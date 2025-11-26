@@ -39,6 +39,7 @@ const ExploreLibrary: React.FC<ExploreLibraryProps> = ({ articles, onSelectArtic
     const getArticleImage = (id: number) => {
         const images: { [key: number]: string } = {
             9: "https://images.unsplash.com/photo-1555774698-0b77e0d5fac6?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+            11: "https://images.unsplash.com/photo-1516321497487-e288fb19713f?q=80&w=1170&auto=format&fit=crop", // Digital Brain/Tech for Mahmoud Flifel
             1: "https://media.istockphoto.com/id/2184511277/photo/professional-businesswoman-in-smart-casual-attire-taking-notes-on-paper-in-a-modern-office.jpg?s=2048x2048&w=is&k=20&c=uRnaT8RMdRNIkLW32eQdrUMNVBUCLvSNDGNh3dwPjYc=",
             2: "https://images.unsplash.com/photo-1711843250852-54e4781ad1b8?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
             3: "https://plus.unsplash.com/premium_photo-1661420260792-89ce2fb94051?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",

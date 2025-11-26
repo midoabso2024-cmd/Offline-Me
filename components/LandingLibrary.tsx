@@ -1,3 +1,4 @@
+
 import React, { useRef, useState, useEffect } from 'react';
 import type { Section } from '../types';
 import { useLanguage } from '../contexts/LanguageContext';
@@ -7,15 +8,45 @@ interface LandingNavGridProps {
     navigateTo: (section: Section) => void;
 }
 
-const NavCard: React.FC<{title: string, description: string, onClick: () => void}> = ({ title, description, onClick }) => (
-    <button 
-        onClick={onClick}
-        className="w-48 sm:w-72 h-24 sm:h-32 flex-shrink-0 bg-surface border border-border-light p-3 sm:p-4 rounded-lg text-center group hover:bg-border-light transition-all duration-300 transform hover:-translate-y-1 shadow-lg flex flex-col items-center justify-center"
-    >
-        <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-teal group-hover:text-white leading-tight">{title}</h3>
-        <p className="text-text-light mt-1 text-xs sm:text-sm hidden sm:block">{description}</p>
-    </button>
-);
+type CardVariant = 'blue' | 'purple' | 'orange' | 'green' | 'pink';
+
+const NavCard: React.FC<{title: string, description: string, onClick: () => void, variant?: CardVariant}> = ({ title, description, onClick, variant = 'blue' }) => {
+    
+    const gradients = {
+        blue: 'from-[#3b82f6] to-[#06b6d4]',
+        purple: 'from-[#8b5cf6] to-[#d946ef]',
+        orange: 'from-[#f97316] to-[#ef4444]',
+        green: 'from-[#10b981] to-[#14b8a6]',
+        pink: 'from-[#ec4899] to-[#f43f5e]'
+    };
+
+    const shadowColors = {
+        blue: 'hover:shadow-[0_0_20px_rgba(59,130,246,0.6)]',
+        purple: 'hover:shadow-[0_0_20px_rgba(139,92,246,0.6)]',
+        orange: 'hover:shadow-[0_0_20px_rgba(249,115,22,0.6)]',
+        green: 'hover:shadow-[0_0_20px_rgba(16,185,129,0.6)]',
+        pink: 'hover:shadow-[0_0_20px_rgba(236,72,153,0.6)]'
+    };
+
+    const gradientClass = gradients[variant];
+    const shadowClass = shadowColors[variant];
+
+    return (
+        <button 
+            onClick={onClick}
+            className={`relative w-48 sm:w-72 h-24 sm:h-32 flex-shrink-0 bg-surface border border-border-light p-3 sm:p-4 rounded-xl text-center group transition-all duration-300 transform hover:-translate-y-2 ${shadowClass} shadow-lg flex flex-col items-center justify-center overflow-hidden`}
+        >
+            {/* Animated Gradient Background */}
+            <div className={`absolute inset-0 bg-gradient-to-r ${gradientClass} opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out`}></div>
+
+            {/* Content */}
+            <div className="relative z-10 flex flex-col items-center justify-center w-full h-full">
+                <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-teal group-hover:text-white transition-colors duration-300 leading-tight">{title}</h3>
+                <p className="text-text-light group-hover:text-white/90 transition-colors duration-300 mt-1 text-xs sm:text-sm hidden sm:block opacity-80">{description}</p>
+            </div>
+        </button>
+    );
+};
 
 const LandingNavGrid: React.FC<LandingNavGridProps> = ({ navigateTo }) => {
     const { t } = useLanguage();
@@ -52,27 +83,31 @@ const LandingNavGrid: React.FC<LandingNavGridProps> = ({ navigateTo }) => {
                 <div 
                     ref={scrollContainerRef}
                     onScroll={checkScroll}
-                    className="flex flex-nowrap gap-6 overflow-x-auto py-4 px-2 no-scrollbar scroll-smooth"
+                    className="flex flex-nowrap gap-6 overflow-x-auto py-4 px-2 no-scrollbar scroll-smooth items-center sm:justify-center"
                 >
                     <NavCard 
                         title={t('navCardInsightsTitle')} 
                         description={t('navCardInsightsDesc')}
                         onClick={() => navigateTo('insights')}
+                        variant="blue"
                     />
                      <NavCard 
                         title={t('navCardCharactersTitle')} 
                         description={t('navCardCharactersDesc')}
                         onClick={() => navigateTo('story')}
+                        variant="purple"
                     />
                      <NavCard 
                         title={t('navCardLibraryTitle')} 
                         description={t('navCardLibraryDesc')}
                         onClick={() => navigateTo('explore')}
+                        variant="pink"
                     />
                     <NavCard 
                         title={t('navCardInteractiveTitle')} 
                         description={t('navCardInteractiveDesc')}
                         onClick={() => navigateTo('interactive')}
+                        variant="orange"
                     />
                 </div>
                 {/* Scroll indicator for mobile */}

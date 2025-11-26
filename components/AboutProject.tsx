@@ -1,4 +1,6 @@
 
+
+
 import React from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
 import Icon from './Icon';
@@ -43,6 +45,10 @@ const AboutProject: React.FC = () => {
                 const titleContent = trimmedLine.substring(3).replace(/\*\*(.*?)\*\*/g, '$1');
                 elements.push(<h2 key={index} className="text-2xl md:text-3xl font-bold text-teal mt-8 mb-6 pb-2 border-b border-border-light">{titleContent}</h2>);
                 sectionCounter++;
+            } else if (trimmedLine.startsWith('### ')) {
+                closeList();
+                const titleContent = trimmedLine.substring(4).replace(/\*\*(.*?)\*\*/g, '$1');
+                elements.push(<h3 key={index} className="text-xl md:text-2xl font-bold text-violet mt-8 mb-4">{titleContent}</h3>);
             } else if (trimmedLine.startsWith('* ')) {
                 if (listType !== 'ul') {
                     closeList();
@@ -50,11 +56,11 @@ const AboutProject: React.FC = () => {
                 }
                 const indentation = line.indexOf('*');
                 const paddingRight = Math.floor(indentation / 4) * 40;
-                const listItemContent = trimmedLine.substring(2).replace(/\*\*(.*?)\*\*/g, '$1');
+                const listItemContent = trimmedLine.substring(2).replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
                 listItems.push(
                     <li key={index} style={{ paddingRight: `${paddingRight}px` }} className="text-text-light text-base md:text-lg leading-relaxed flex items-start gap-4">
                         <Icon name="bullet-circle" className="h-6 w-6 mt-1 md:mt-2 flex-shrink-0 text-teal" />
-                        <span>{listItemContent}</span>
+                        <span dangerouslySetInnerHTML={{ __html: listItemContent }} />
                     </li>
                 );
             } else if (/^\d+\.\s+/.test(trimmedLine)) {
@@ -65,24 +71,22 @@ const AboutProject: React.FC = () => {
                 }
                 const indentation = line.search(/\d/);
                 const paddingRight = Math.floor(indentation / 4) * 40;
-                const listItemContent = trimmedLine.replace(/^\d+\.\s+/, '').replace(/\*\*(.*?)\*\*/g, '$1');
+                const listItemContent = trimmedLine.replace(/^\d+\.\s+/, '').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
                 listItems.push(
                     <li key={index} style={{ paddingRight: `${paddingRight}px` }} className="text-text-light text-base md:text-lg leading-relaxed flex items-start gap-4">
                         <div className="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-teal/20 text-teal font-bold rounded-full mt-1">
                             {olCounter++}
                         </div>
-                        <span>{listItemContent}</span>
+                        <span dangerouslySetInnerHTML={{ __html: listItemContent }} />
                     </li>
                 );
             } else {
                 closeList();
                 const isBoldParagraph = trimmedLine.startsWith('**') && trimmedLine.endsWith('**');
-                const content = isBoldParagraph ? trimmedLine.slice(2, -2) : trimmedLine.replace(/\*\*(.*?)\*\*/g, '$1');
+                const content = isBoldParagraph ? trimmedLine.slice(2, -2) : trimmedLine.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
 
                 elements.push(
-                    <p key={index} className={`mb-4 text-base md:text-lg leading-relaxed ${isBoldParagraph ? 'font-bold text-text-dark' : 'text-text-light'}`}>
-                        {content}
-                    </p>
+                    <p key={index} className={`mb-4 text-base md:text-lg leading-relaxed ${isBoldParagraph ? 'font-bold text-text-dark' : 'text-text-light'}`} dangerouslySetInnerHTML={{ __html: content }} />
                 );
             }
         });

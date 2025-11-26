@@ -1,4 +1,5 @@
 
+
 import React, { useState, useRef } from 'react';
 import type { StoryChapter } from '../types';
 import { useLanguage } from '../contexts/LanguageContext';
@@ -192,7 +193,8 @@ const StoryChapterViewer: React.FC<StoryChapterViewerProps> = ({ chapter, allCha
                                 return;
                             }
 
-                            if (trimmedLine.startsWith('•')) {
+                            // Match common bullet points: •, -, *
+                            if (trimmedLine.startsWith('•') || trimmedLine.startsWith('-') || trimmedLine.startsWith('*')) {
                                 // If we were building a card, push it
                                 if (currentCard) {
                                     items.push({ type: 'card', title: currentCard.title, content: currentCard.content });

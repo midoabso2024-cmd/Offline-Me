@@ -1,4 +1,5 @@
 
+
 import React from 'react';
 import type { StoryChapter, CharacterProfile } from '../types';
 import { useLanguage } from '../contexts/LanguageContext';
@@ -15,7 +16,12 @@ const StoryArchive: React.FC<StoryArchiveProps> = ({ chapters, onSelectChapter }
   const characters: CharacterProfile[] = Array.isArray(rawCharacters) ? rawCharacters : [];
 
   const getChapterImage = (chapter: StoryChapter) => {
-      // Expressive Cover Images for Cards
+      // Prioritize explicit chapter images if available (e.g., comic panels)
+      if (chapter.images && chapter.images.length > 0) {
+          return chapter.images[0];
+      }
+
+      // Fallback Cover Images for Cards if no images defined
       const coverImages: {[key: number]: string} = {
           0: "https://images.unsplash.com/photo-1509021436665-8f07dbf5bf1d?q=80&w=800&auto=format&fit=crop", // Intro: Identity/Question
           1: "https://images.unsplash.com/photo-1555617766-c94804975da3?q=80&w=800&auto=format&fit=crop", // Ch1: Blue Light/Phone in dark
@@ -30,10 +36,6 @@ const StoryArchive: React.FC<StoryArchiveProps> = ({ chapters, onSelectChapter }
 
       if (coverImages[chapter.id]) {
           return coverImages[chapter.id];
-      }
-
-      if (chapter.images && chapter.images.length > 0) {
-          return chapter.images[0];
       }
       
       return "https://images.unsplash.com/photo-1614726365723-49cfae950f29?q=80&w=600&auto=format&fit=crop";

@@ -1,3 +1,4 @@
+
 import React, { useRef, useEffect, useState, useLayoutEffect } from 'react';
 import type { Section } from '../types';
 import { useLanguage } from '../contexts/LanguageContext';
@@ -35,6 +36,7 @@ const AnimatedSection: React.FC<AnimatedSectionProps> = ({ children, className =
   );
 };
 
+type CardVariant = 'blue' | 'purple' | 'orange' | 'green' | 'pink';
 
 const FeatureCard: React.FC<{
     iconName: IconName;
@@ -42,25 +44,56 @@ const FeatureCard: React.FC<{
     subtitle: string;
     onClick: () => void;
     delay?: string;
-}> = ({ iconName, title, subtitle, onClick, delay = '0ms' }) => (
-    <div 
-        className="flex-shrink-0 animate-entrance opacity-0" 
-        style={{ animationDelay: delay }}
-    >
-         <button
-            onClick={onClick}
-            className="w-48 h-16 sm:w-64 sm:h-24 bg-surface border border-border-light px-4 py-2 rounded-xl text-start group transition-all duration-300 transform hover:-translate-y-1 hover:border-teal/50 shadow-lg flex flex-row items-center justify-start gap-4 h-full overflow-hidden"
+    variant?: CardVariant;
+}> = ({ iconName, title, subtitle, onClick, delay = '0ms', variant = 'blue' }) => {
+    
+    // Gradient definitions for hover state
+    const gradients = {
+        blue: 'from-[#3b82f6] to-[#06b6d4]',
+        purple: 'from-[#8b5cf6] to-[#d946ef]',
+        orange: 'from-[#f97316] to-[#ef4444]',
+        green: 'from-[#10b981] to-[#14b8a6]',
+        pink: 'from-[#ec4899] to-[#f43f5e]'
+    };
+
+    // Shadow color definitions matching the gradient primary color
+    const shadowColors = {
+        blue: 'hover:shadow-[0_0_20px_rgba(59,130,246,0.6)]',
+        purple: 'hover:shadow-[0_0_20px_rgba(139,92,246,0.6)]',
+        orange: 'hover:shadow-[0_0_20px_rgba(249,115,22,0.6)]',
+        green: 'hover:shadow-[0_0_20px_rgba(16,185,129,0.6)]',
+        pink: 'hover:shadow-[0_0_20px_rgba(236,72,153,0.6)]'
+    };
+
+    const gradientClass = gradients[variant];
+    const shadowClass = shadowColors[variant];
+
+    return (
+        <div 
+            className="flex-shrink-0 animate-entrance opacity-0" 
+            style={{ animationDelay: delay }}
         >
-            <div className="flex-shrink-0 -mt-2">
-                <Icon name={iconName} className="h-5 w-5 md:h-7 md:w-7 text-teal" />
-            </div>
-            <div className="flex flex-col min-w-0">
-                <h3 className="text-[10px] md:text-sm font-bold text-text-dark leading-tight mb-0.5 truncate">{title}</h3>
-                <p className="text-[9px] md:text-xs text-text-light line-clamp-2 leading-tight opacity-80">{subtitle}</p>
-            </div>
-        </button>
-    </div>
-);
+             <button
+                onClick={onClick}
+                className={`relative w-48 h-16 sm:w-64 sm:h-24 bg-surface border border-border-light px-4 py-2 rounded-xl text-start group transition-all duration-300 transform hover:-translate-y-1 ${shadowClass} shadow-lg flex flex-row items-center justify-start gap-4 h-full overflow-hidden`}
+            >
+                {/* Animated Gradient Background */}
+                <div className={`absolute inset-0 bg-gradient-to-r ${gradientClass} opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out`}></div>
+                
+                <div className="relative z-10 flex-shrink-0 -mt-2">
+                    {/* Icon Color Transition */}
+                    <div className="text-teal group-hover:text-white transition-colors duration-300">
+                         <Icon name={iconName} className="h-5 w-5 md:h-7 md:w-7" />
+                    </div>
+                </div>
+                <div className="relative z-10 flex flex-col min-w-0">
+                    <h3 className="text-[10px] md:text-sm font-bold text-text-dark group-hover:text-white transition-colors duration-300 leading-tight mb-0.5 truncate">{title}</h3>
+                    <p className="text-[9px] md:text-xs text-text-light group-hover:text-white/90 transition-colors duration-300 line-clamp-2 leading-tight opacity-80">{subtitle}</p>
+                </div>
+            </button>
+        </div>
+    );
+};
 
 const SectionSeparator: React.FC = () => (
     <div className="max-w-2xl mx-auto">
@@ -212,6 +245,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ navigateTo, scrollToSection }
                         subtitle={t('chatbotSubtitle')} 
                         onClick={() => scrollToRef(chatbotRef)} 
                         delay="700ms"
+                        variant="blue"
                     />
                     <FeatureCard 
                         iconName="studio" 
@@ -219,6 +253,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ navigateTo, scrollToSection }
                         subtitle={t('studioSubtitle')} 
                         onClick={() => scrollToRef(studioRef)} 
                         delay="800ms"
+                        variant="purple"
                     />
                     <FeatureCard 
                         iconName="user" 
@@ -226,6 +261,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ navigateTo, scrollToSection }
                         subtitle={t('testimonialsSubtitle_nav')} 
                         onClick={() => scrollToRef(testimonialsRef)} 
                         delay="900ms"
+                        variant="orange"
                     />
                     <FeatureCard 
                         iconName="info-circle" 
@@ -233,6 +269,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ navigateTo, scrollToSection }
                         subtitle={t('aboutSubtitle')} 
                         onClick={() => scrollToRef(aboutRef)} 
                         delay="1000ms"
+                        variant="green"
                     />
                     <FeatureCard 
                         iconName="grid" 
@@ -240,6 +277,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ navigateTo, scrollToSection }
                         subtitle={t('exploreProjectSections')}
                         onClick={() => scrollToRef(exploreRef)} 
                         delay="1100ms"
+                        variant="pink"
                     />
                 </div>
                 <div 
