@@ -180,50 +180,84 @@ const StoryChapterViewer: React.FC<StoryChapterViewerProps> = ({ chapter, allCha
                 
                 {/* Single Column Layout for Cards */}
                 <div className="flex flex-col gap-6">
-                    {appendixPart.split('\n').filter(p => p.trim() !== '').map((line, idx) => {
-                        const trimmedLine = line.trim();
-                        
-                        // Skip the title line inside the loop as we render a custom header
-                        if (trimmedLine.includes('الملحق العلمي') || trimmedLine === '***') {
-                            return null;
-                        }
-                        
-                        // Parse Bullet Points into Cards
-                        if (trimmedLine.startsWith('•')) {
-                            const content = trimmedLine.substring(1).trim();
-                            const colonIndex = content.indexOf(':');
-                            
-                            let title = '';
-                            let description = content;
+                    {(() => {
+                        const lines = appendixPart.split('\n').filter(p => p.trim() !== '');
+                        const items: { type: 'card' | 'text'; title?: string; content: string }[] = [];
+                        let currentCard: { title?: string; content: string } | null = null;
 
-                            if (colonIndex !== -1) {
-                                title = content.substring(0, colonIndex).trim();
-                                description = content.substring(colonIndex + 1).trim();
+                        lines.forEach(line => {
+                            const trimmedLine = line.trim();
+                            // Skip title lines or separators
+                            if (trimmedLine.includes('الملحق العلمي') || trimmedLine === '***' || /^[_\-]{3,}$/.test(trimmedLine)) {
+                                return;
                             }
 
-                            return (
-                                <div key={idx} className="bg-surface border border-border-light rounded-xl p-6 shadow-md hover:border-teal/50 hover:shadow-teal/10 hover:-translate-y-1 transition-all duration-300 flex flex-col gap-3 w-full">
-                                    {title && (
-                                        <h4 className="text-lg md:text-xl font-bold text-teal flex items-start gap-2">
-                                            <Icon name="bullet-circle" className="w-5 h-5 mt-1.5 flex-shrink-0" />
-                                            {title}
-                                        </h4>
-                                    )}
-                                    <p className={`text-text-light leading-relaxed text-sm md:text-base ${!title ? 'flex gap-2' : ''}`}>
-                                        {!title && <Icon name="bullet-circle" className="w-5 h-5 mt-1 flex-shrink-0 text-teal" />}
-                                        {description}
-                                    </p>
-                                </div>
-                            );
+                            if (trimmedLine.startsWith('•')) {
+                                // If we were building a card, push it
+                                if (currentCard) {
+                                    items.push({ type: 'card', title: currentCard.title, content: currentCard.content });
+                                }
+                                
+                                // Start new card
+                                const textWithoutBullet = trimmedLine.substring(1).trim();
+                                const colonIndex = textWithoutBullet.indexOf(':');
+                                
+                                if (colonIndex !== -1) {
+                                    currentCard = {
+                                        title: textWithoutBullet.substring(0, colonIndex).trim(),
+                                        content: textWithoutBullet.substring(colonIndex + 1).trim()
+                                    };
+                                } else {
+                                    // Bullet without colon (maybe title only, or content follows on next line)
+                                    currentCard = {
+                                        title: textWithoutBullet,
+                                        content: ''
+                                    };
+                                }
+                            } else {
+                                // Non-bullet line
+                                if (currentCard) {
+                                    // Append to current card
+                                    currentCard.content = currentCard.content 
+                                        ? currentCard.content + '\n' + trimmedLine 
+                                        : trimmedLine;
+                                } else {
+                                    // Standalone text (intro paragraph perhaps)
+                                    items.push({ type: 'text', content: trimmedLine });
+                                }
+                            }
+                        });
+
+                        // Push the last card if exists
+                        if (currentCard) {
+                            items.push({ type: 'card', title: currentCard.title, content: currentCard.content });
                         }
-                        
-                        // Render any intro/outro text that isn't a bullet point as a full-width centered block
-                        return (
-                            <div key={idx} className="bg-teal/5 border border-teal/10 rounded-lg p-4 text-center w-full">
-                                <p className="text-text-light text-base md:text-lg">{trimmedLine}</p>
-                            </div>
-                        );
-                    })}
+
+                        return items.map((item, idx) => {
+                            if (item.type === 'card') {
+                                return (
+                                    <div key={idx} className="bg-surface border border-border-light rounded-xl p-6 shadow-md hover:border-teal/50 hover:shadow-teal/10 hover:-translate-y-1 transition-all duration-300 flex flex-col gap-3 w-full">
+                                        {item.title && (
+                                            <h4 className="text-lg md:text-xl font-bold text-teal flex items-start gap-2">
+                                                <Icon name="bullet-circle" className="w-5 h-5 mt-1.5 flex-shrink-0" />
+                                                {item.title}
+                                            </h4>
+                                        )}
+                                        <p className={`text-text-light leading-relaxed text-sm md:text-base whitespace-pre-line ${!item.title ? 'flex gap-2' : ''}`}>
+                                            {!item.title && <Icon name="bullet-circle" className="w-5 h-5 mt-1 flex-shrink-0 text-teal" />}
+                                            {item.content}
+                                        </p>
+                                    </div>
+                                );
+                            } else {
+                                return (
+                                    <div key={idx} className="bg-teal/5 border border-teal/10 rounded-lg p-4 text-center w-full">
+                                        <p className="text-text-light text-base md:text-lg">{item.content}</p>
+                                    </div>
+                                );
+                            }
+                        });
+                    })()}
                 </div>
             </div>
         )}

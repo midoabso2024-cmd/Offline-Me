@@ -75,39 +75,13 @@ const Footer: React.FC<FooterProps> = ({ navigateTo }) => {
         <div className="mt-12 pt-8 border-t border-border-light/50 flex flex-col items-center justify-center gap-6 opacity-80 hover:opacity-100 transition-opacity">
             <p className="text-xs text-text-light/60 text-center">{t('copyrightText', { year: new Date().getFullYear() })}</p>
             
-            {/* Footer Title - Simplified, No Tilt */}
-            <div className="relative select-none flex flex-col items-center justify-center leading-none scale-90">
-                 <div className="grid place-items-center" style={{ transform: 'scaleY(1.3)' }}>
-                     {/* Back Layer: Gradient Stroke */}
-                     <span 
-                        className="col-start-1 row-start-1 text-lg font-bold tracking-widest uppercase whitespace-nowrap"
-                        style={{
-                            fontFamily: "'Oswald', sans-serif",
-                            WebkitTextStroke: '1.5px transparent',
-                            backgroundImage: 'linear-gradient(to left, #a78bfa, #3b82f6)',
-                            WebkitBackgroundClip: 'text',
-                            color: 'transparent',
-                            zIndex: -1,
-                            filter: 'drop-shadow(0 0 1px rgba(59, 130, 246, 0.5))',
-                            padding: '0 0.2em'
-                        }}
-                        aria-hidden="true"
-                     >
-                        OFFLINE-ME
-                     </span>
-                     
-                     {/* Front Layer: White Fill */}
-                     <span 
-                        className="col-start-1 row-start-1 text-lg font-bold tracking-widest uppercase whitespace-nowrap"
-                        style={{
-                            fontFamily: "'Oswald', sans-serif",
-                            color: '#ffffff',
-                            padding: '0 0.2em'
-                        }}
-                     >
-                        OFFLINE-ME
-                     </span>
-                 </div>
+            {/* Footer Logo - Image */}
+            <div className="relative select-none flex flex-col items-center justify-center">
+                 <img 
+                    src="https://scontent.fcai19-7.fna.fbcdn.net/v/t39.30808-1/584710065_122104882509122002_8770142176411048078_n.jpg?stp=c58.110.914.914a_dst-jpg_s160x160_tt6&_nc_cat=105&ccb=1-7&_nc_sid=2d3e12&_nc_ohc=JneRh7NRjlkQ7kNvwGOr5-l&_nc_oc=AdmJTB3Htk7drE731AmtfLJRWozLqyRJd0v7g2NOd1Vys9psvXsXAZn3fmDiPYTTHPY&_nc_zt=24&_nc_ht=scontent.fcai19-7.fna&_nc_gid=unIOEiOPYIeKsrCNxljZgQ&oh=00_AfjIOFRRVZWRUOryQ_IaMMxf2C1jtWqoe4bxadKQGCLeaw&oe=692CF10C"
+                    alt="Offline-Me"
+                    className="h-80 w-80 rounded-[3rem] object-cover border-2 border-white/20 shadow-lg"
+                 />
             </div>
         </div>
       </div>

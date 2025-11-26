@@ -129,7 +129,7 @@ const Header: React.FC<HeaderProps> = ({ navigateTo, currentSection }) => {
                     <img 
                         src="https://scontent.fcai19-7.fna.fbcdn.net/v/t39.30808-1/584710065_122104882509122002_8770142176411048078_n.jpg?stp=c58.110.914.914a_dst-jpg_s160x160_tt6&_nc_cat=105&ccb=1-7&_nc_sid=2d3e12&_nc_ohc=JneRh7NRjlkQ7kNvwGOr5-l&_nc_oc=AdmJTB3Htk7drE731AmtfLJRWozLqyRJd0v7g2NOd1Vys9psvXsXAZn3fmDiPYTTHPY&_nc_zt=24&_nc_ht=scontent.fcai19-7.fna&_nc_gid=unIOEiOPYIeKsrCNxljZgQ&oh=00_AfjIOFRRVZWRUOryQ_IaMMxf2C1jtWqoe4bxadKQGCLeaw&oe=692CF10C"
                         alt="Offline-Me"
-                        className="h-10 w-10 md:h-12 md:w-12 rounded-full object-cover border-2 border-white/20 shadow-md transition-transform duration-300 group-hover:scale-105"
+                        className="h-12 w-12 md:h-14 md:w-14 rounded-xl object-cover border-2 border-white/20 shadow-md transition-transform duration-300 group-hover:scale-105"
                     />
                 </button>
 
