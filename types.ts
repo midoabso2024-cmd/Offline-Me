@@ -1,5 +1,6 @@
 
-export type Section = 'home' | 'story' | 'insights' | 'interactive' | 'explore' | 'about' | 'chatbot' | 'studio' | 'testimonials' | 'contact';
+
+export type Section = 'home' | 'story' | 'videos' | 'insights' | 'interactive' | 'explore' | 'about' | 'chatbot' | 'studio' | 'testimonials' | 'contact';
 
 export interface QuizQuestion {
   question: string;
@@ -28,4 +29,11 @@ export interface Article {
     title: string;
     author: string;
     content: string;
+}
+
+export interface VideoContent {
+    id: number;
+    title: string;
+    url: string;
+    description: string;
 }

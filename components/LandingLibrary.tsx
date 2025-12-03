@@ -1,4 +1,5 @@
 
+
 import React, { useRef, useState, useEffect } from 'react';
 import type { Section } from '../types';
 import { useLanguage } from '../contexts/LanguageContext';
@@ -96,6 +97,12 @@ const LandingNavGrid: React.FC<LandingNavGridProps> = ({ navigateTo }) => {
                         description={t('navCardCharactersDesc')}
                         onClick={() => navigateTo('story')}
                         variant="purple"
+                    />
+                     <NavCard 
+                        title={t('navCardVideosTitle')} 
+                        description={t('navCardVideosDesc')}
+                        onClick={() => navigateTo('videos')}
+                        variant="green"
                     />
                      <NavCard 
                         title={t('navCardLibraryTitle')} 

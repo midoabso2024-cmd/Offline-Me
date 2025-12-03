@@ -1,5 +1,7 @@
 
 
+
+
 import React, { useState, useEffect } from 'react';
 import type { Section } from '../types';
 import { useLanguage } from '../contexts/LanguageContext';
@@ -103,6 +105,8 @@ const Header: React.FC<HeaderProps> = ({ navigateTo, currentSection }) => {
                 <NavSeparator />
                 <NavLink section="story" currentSection={currentSection} navigateTo={navigateTo}>{t('navStory')}</NavLink>
                 <NavSeparator />
+                <NavLink section="videos" currentSection={currentSection} navigateTo={navigateTo}>{t('navVideos')}</NavLink>
+                <NavSeparator />
                 <NavLink section="interactive" currentSection={currentSection} navigateTo={navigateTo}>{t('navInteractive')}</NavLink>
                 <NavSeparator />
                 <NavLink section="chatbot" currentSection={currentSection} navigateTo={navigateTo}>{t('navChatbot')}</NavLink>
@@ -182,6 +186,7 @@ const Header: React.FC<HeaderProps> = ({ navigateTo, currentSection }) => {
                 <nav className="flex flex-col p-4 space-y-2">
                     <button onClick={() => { navigateTo('home'); setIsMobileMenuOpen(false); }} className="p-3 text-left font-black text-text-light hover:bg-white/5 rounded-lg">{t('navHome')}</button>
                     <button onClick={() => { navigateTo('story'); setIsMobileMenuOpen(false); }} className="p-3 text-left font-bold text-text-light hover:bg-white/5 rounded-lg">{t('navStory')}</button>
+                    <button onClick={() => { navigateTo('videos'); setIsMobileMenuOpen(false); }} className="p-3 text-left font-bold text-text-light hover:bg-white/5 rounded-lg">{t('navVideos')}</button>
                     <button onClick={() => { navigateTo('interactive'); setIsMobileMenuOpen(false); }} className="p-3 text-left font-bold text-text-light hover:bg-white/5 rounded-lg">{t('navInteractive')}</button>
                     <button onClick={() => { navigateTo('chatbot'); setIsMobileMenuOpen(false); }} className="p-3 text-left font-bold text-text-light hover:bg-white/5 rounded-lg">{t('navChatbot')}</button>
                     <button onClick={() => { navigateTo('studio'); setIsMobileMenuOpen(false); }} className="p-3 text-left font-bold text-text-light hover:bg-white/5 rounded-lg">{t('navStudio')}</button>

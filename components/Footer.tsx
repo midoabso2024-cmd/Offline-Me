@@ -1,3 +1,4 @@
+
 import React from 'react';
 import type { Section } from '../types';
 import { useLanguage } from '../contexts/LanguageContext';
@@ -49,6 +50,7 @@ const Footer: React.FC<FooterProps> = ({ navigateTo }) => {
             <h3 className="text-xl font-bold uppercase tracking-wider text-text-dark">{t('quickLinks')}</h3>
             <nav className="flex flex-col space-y-2">
               <FooterLink onClick={() => navigateTo('story')}>{t('navStory')}</FooterLink>
+              <FooterLink onClick={() => navigateTo('videos')}>{t('navVideos')}</FooterLink>
               <FooterLink onClick={() => navigateTo('interactive')}>{t('navInteractive')}</FooterLink>
               <FooterLink onClick={() => navigateTo('insights')}>{t('navInsights')}</FooterLink>
               <FooterLink onClick={() => navigateTo('explore')}>{t('navLibrary')}</FooterLink>
@@ -79,7 +81,7 @@ const Footer: React.FC<FooterProps> = ({ navigateTo }) => {
                  <img 
                     src="https://scontent.fcai19-7.fna.fbcdn.net/v/t39.30808-1/584710065_122104882509122002_8770142176411048078_n.jpg?stp=c58.110.914.914a_dst-jpg_s160x160_tt6&_nc_cat=105&ccb=1-7&_nc_sid=2d3e12&_nc_ohc=JneRh7NRjlkQ7kNvwGOr5-l&_nc_oc=AdmJTB3Htk7drE731AmtfLJRWozLqyRJd0v7g2NOd1Vys9psvXsXAZn3fmDiPYTTHPY&_nc_zt=24&_nc_ht=scontent.fcai19-7.fna&_nc_gid=unIOEiOPYIeKsrCNxljZgQ&oh=00_AfjIOFRRVZWRUOryQ_IaMMxf2C1jtWqoe4bxadKQGCLeaw&oe=692CF10C"
                     alt="Offline-Me"
-                    className="h-48 w-48 rounded-[2rem] object-cover border-2 border-white/20 shadow-lg"
+                    className="h-40 w-40 rounded-[1.5rem] object-cover border-2 border-white/20 shadow-lg"
                  />
             </div>
         </div>

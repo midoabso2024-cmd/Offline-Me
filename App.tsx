@@ -1,3 +1,5 @@
+
+
 import React, { useState, useCallback, useEffect } from 'react';
 import type { Section, Article, StoryChapter } from './types';
 import Header from './components/Header';
@@ -9,6 +11,7 @@ import ExploreLibrary from './components/ExploreLibrary';
 import Footer from './components/Footer';
 import ArticleViewer from './components/ArticleViewer';
 import StoryChapterViewer from './components/StoryChapterViewer';
+import VideoGallery from './components/VideoGallery';
 import { LanguageProvider, useLanguage } from './contexts/LanguageContext';
 import AboutProject from './components/AboutProject';
 import IntroAnimation from './components/IntroAnimation';
@@ -134,6 +137,8 @@ const AppContent: React.FC = () => {
         return <LandingPage navigateTo={navigateTo} />;
       case 'story':
         return <StoryArchive chapters={chapters} onSelectChapter={handleSelectChapter} />;
+      case 'videos':
+        return <VideoGallery />;
       case 'insights':
         return <InsightsZone />;
       case 'interactive':
